@@ -48,5 +48,6 @@ Changelog
 ========= ========== ============================================================================================================
 Version   Date       Comment
 ========= ========== ============================================================================================================
+v0.2.0.0  2013/11/12 Added more CSS to style the candy-calc tables. Centered all columns except the description column. Made the input box smaller. Made the table width a percentage of the parent element rather than a fixed pixel width.
 v0.1.0.0  2013/11/11 Initial commit. Repo currently only has CSS file and simple README, calculator engine has not been added yet.
 ========= ========== ============================================================================================================

@@ -1,7 +1,18 @@
-.name, .equation, .symbol {
+.candy-calc{
+	/* Make table take up most of the width of the parent element */
+	width: 95%;
+	/* Centre table in parent element */
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Center align some of the calculator column contents */
+.name, .equation, .symbol, .units {
 		text-align: center;
 	}
-	
+
+/* Make comment column text smaller than normal, since
+this will likely have plenty of text in it */
 .comment {
 	font-size: small;
 }
@@ -11,18 +22,22 @@
 	border-radius: 4px;
 	padding: 2px;
 	background-color: #99FF99;
+	width: 100px;
 }
 
+/* Make border glow green for valid selected input variables */
 .input:focus { 
 	outline: none;
 	border-color: #00ff00;
 	box-shadow: 0 0 10px #9ecaed;
 }
 
+/* Make background colour red for not valid variables */
 .input.notValid, .output.notValid {
 	background-color: #FF9999;
 }
 
+/* Make border glow red */
 .input.notValid:focus { 
 	outline: none;
 	border-color: #ff0000;
@@ -34,4 +49,5 @@
 	border-radius: 0px;
 	padding: 2px;
 	background-color: #99FF99;
+	width: 100px;
 }
