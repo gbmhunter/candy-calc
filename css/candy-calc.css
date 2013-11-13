@@ -44,8 +44,10 @@ this will likely have plenty of text in it */
 	box-shadow: 0 0 10px #9ecaed;
 }
 
+/* Outputs have a smaller border to differentiate themselves from inputs
+ They are also non-editable (readonly), but this in set via javascript */
 .output {
-	border: 3px solid #ffffff;
+	border: 1px solid #000000;
 	border-radius: 0px;
 	padding: 2px;
 	background-color: #99FF99;
