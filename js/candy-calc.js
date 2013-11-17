@@ -39,9 +39,12 @@ function validator(msg, fn, app)
 	this.fn = fn;
 	this.app = app;
 }
-	
-// "Class" for a calc variable
-var calcInput = function(app, validatorFn, units, selUnit) {
+
+// Candy-calc "namespace"
+var cc = new function()
+{
+	// "Class" for a calc variable
+	this.input = function(app, validatorFn, units, selUnit) {
 		this.dispVal = ko.observable();
 		this.units = ko.observableArray(units);
 		this.selUnit = ko.observable(this.units()[selUnit]);
@@ -90,7 +93,7 @@ var calcInput = function(app, validatorFn, units, selUnit) {
 		}
    };
 	
-var calcComp = function(app, compFn, validatorFn, units, selUnit) {
+	this.output = function(app, compFn, validatorFn, units, selUnit) {
 			
 		this.units = ko.observableArray(units);
 		this.selUnit = ko.observable(this.units()[selUnit]);
@@ -148,6 +151,10 @@ var calcComp = function(app, compFn, validatorFn, units, selUnit) {
 		}
 				
 	};
+};
+
+	
+
 
 // Stuff to execute on start-up
 // - Register custom binding handler
@@ -196,15 +203,15 @@ jQuery(document).ready(
 				  // Call value binding (child binding)
 				  ko.bindingHandlers.value.update(element, function (){ return valueAccessor().dispVal } , allBindings, viewModel, bindingContext);
 				  																				
-					if(valueAccessor().isValid() == false)
+					if(valueAccessor().isValid() == false) // Validator returned false, value did not pass this test
 					{
-						//Log('Activating tooltip.');
+						Log('Activating tooltip.');
 						jQuery(element).qtip('disable', false);
-						// Update text
-						Log('Qtip');
-						//jQuery(element).qtip('option', 'content.text', 'BLAH');
-						jQuery(element).qtip({ // Grab some elements to apply the tooltip to
+						// Note that the only way I have found to successfully replace the tooltip text is
+						// to create an entirely new object. This is not the ideal method!
+						jQuery(element).qtip({
 								content: {
+									// Grab the text shown the the triggered validator object
 									text: valueAccessor().validatorA()[valueAccessor().trigIndex()].msg,
 									title: 'Error!'
 								},
@@ -223,13 +230,14 @@ jQuery(document).ready(
 								}
 							});
 							
-						// Add notValid class for CSS to render red
+						// Since validator returned false, add notValid class for CSS to render red
 						jQuery(element).addClass("notValid"); 						
 					}
-					else
+					else // Validator returned true, value passed this test
 					{
 						// Remove notValid class to make green again
 						jQuery(element).removeClass("notValid");
+						// Disable tooltip which showed any errors
 						jQuery(element).qtip('disable', true);
 					}
 					

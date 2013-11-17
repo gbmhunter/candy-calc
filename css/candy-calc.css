@@ -1,3 +1,13 @@
+/*
+// @file 		candy-calc.css
+// @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlabs.com)
+// @edited 		n/a
+// @date 		2013/11/01
+// @brief 		CSS styling for candy-calc.
+// @details
+//				See the README in the repo root dir for more info.
+*/
+
 .candy-calc{
 	/* Make table take up most of the width of the parent element */
 	width: 95%;
@@ -17,6 +27,8 @@ this will likely have plenty of text in it */
 	font-size: small;
 }
 
+/* Input box styling for valid values. See .input.notvalid class for styling for
+invalid values */
 .input {
 	border: 3px solid #000000;
 	border-radius: 4px;
