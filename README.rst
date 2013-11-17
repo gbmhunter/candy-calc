@@ -5,7 +5,7 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2013/11/11
 - Last Modified: 2013/11/18
-- Version: v1.1.0.0
+- Version: v2.0.0.0
 - Company: CladLabs	.
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -48,6 +48,7 @@ Changelog
 ========= ========== ============================================================================================================
 Version   Date       Comment
 ========= ========== ============================================================================================================
+v2.0.0.0  2013/11/18 Added support for pre-defined validators (AddValidator()). Custom validators now called with AddCustomValidator(). qTip is destroyed when non-longer needed to prevent qTips remaining visible when they shouldn't be.
 v1.1.0.0  2013/11/18 Tidied up code, added comments where appropriate. Moved calculator functions into cc 'namespace'. calcInput became cc.input and renamed calcComp object to cc.output.
 v1.0.2.0  2013/11/14 candy-calc now loads jQuery if it has not already been loaded. Fixed some code indenting issues. All debug messages now get turned off if debug is set to false. Moved knockout, MathJax, qTip includes into candy-calc.js rather than making the user include these manually.
 v1.0.1.0  2013/11/14 Gave the calculator outputs a smaller border and made them black (used to be white).

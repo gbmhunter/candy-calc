@@ -43,6 +43,13 @@ function validator(msg, fn, app)
 // Candy-calc "namespace"
 var cc = new function()
 {
+	// Enumeration of pre-defined validators
+	this.validatorEnum = {
+		'IS_NUMBER' 				: 1,
+		'IS_POSITIVE_OR_ZERO' 	: 2,
+		'IS_NEGATIVE_OR_ZERO' 	: 3
+	}
+
 	// "Class" for a calc variable
 	this.input = function(app, validatorFn, units, selUnit) {
 		this.dispVal = ko.observable();
@@ -66,12 +73,12 @@ var cc = new function()
 		this.isValid = ko.computed(
 			function()
 			{
-				Log('Computing isValid.');
+				Log('Computing isValid for input.');
+				Log('Validator array length = ' + this.validatorA().length);
 				for (var i = 0; i < this.validatorA().length; i++) {
 					if(this.validatorA()[i].fn(this.validatorA()[i].app) == false)
 					{
 						// Remember the validator which returned false
-						//this.triggeredValidator(this.validatorA()[i]);
 						Log('Setting index.');
 						this.trigIndex(i);
 						Log('Returning false.');
@@ -86,12 +93,38 @@ var cc = new function()
 		);
 		
 		// Methods
-		this.AddValidator = function(msg, fn, app)
+		
+		this.AddValidator = function(validatorEnum)
+		{
+			switch(validatorEnum)
+			{
+				case cc.validatorEnum.IS_NUMBER:
+					console.log('Adding IS_NUMBER validator.');
+					this.validatorA.push(
+						new validator(
+							'Value must be a number!',
+							function(variable)
+							{
+								console.log('Testing');
+								return !isNaN(variable.val());
+							}, 
+							this)
+					);
+					break;
+				//case default:
+					//console.log('Enum not recognised.');
+			}
+		}
+		
+		this.AddCustomValidator = function(msg, fn, app)
 		{
 			// Create new validator object and add to the end of the array
+			Log('Adding new custom validator.');
 			this.validatorA.push(new validator(msg, fn, app));
 		}
-   };
+		
+		
+   }; // this.input
 	
 	this.output = function(app, compFn, validatorFn, units, selUnit) {
 			
@@ -124,7 +157,8 @@ var cc = new function()
 		this.isValid = ko.computed(
 			function()
 			{
-				Log('Computing isValid.');
+				Log('Computing isValid for output.');
+				Log('Validator array length = ' + this.validatorA().length);
 				for (var i = 0; i < this.validatorA().length; i++) {
 					if(this.validatorA()[i].fn(this.validatorA()[i].app) == false)
 					{
@@ -144,7 +178,7 @@ var cc = new function()
 		);
 				
 		// Methods
-		this.AddValidator = function(msg, fn, app)
+		this.AddCustomValidator = function(msg, fn, app)
 		{
 			// Create new validator object and add to the end of the array
 			this.validatorA.push(new validator(msg, fn, app));
@@ -172,6 +206,7 @@ jQuery(document).ready(
 				  
 				// Create Opentip (tooltip) for input box
 				Log('Initialising calculator variable handlers');
+				/*
 				jQuery(element).qtip({ // Grab some elements to apply the tooltip to
 					content: {
 						text: '',
@@ -193,6 +228,7 @@ jQuery(document).ready(
 				})
 				// We want this disabled by default.
 				jQuery(element).qtip('disable', true);
+				*/
 								
 			 },
 			 update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
@@ -206,7 +242,7 @@ jQuery(document).ready(
 					if(valueAccessor().isValid() == false) // Validator returned false, value did not pass this test
 					{
 						Log('Activating tooltip.');
-						jQuery(element).qtip('disable', false);
+						//jQuery(element).qtip('disable', false);
 						// Note that the only way I have found to successfully replace the tooltip text is
 						// to create an entirely new object. This is not the ideal method!
 						jQuery(element).qtip({
@@ -235,10 +271,12 @@ jQuery(document).ready(
 					}
 					else // Validator returned true, value passed this test
 					{
+						Log('Removing notValid class and disabling tooltip.');
 						// Remove notValid class to make green again
 						jQuery(element).removeClass("notValid");
 						// Disable tooltip which showed any errors
-						jQuery(element).qtip('disable', true);
+						//jQuery(element).qtip('disable', true);
+						jQuery(element).qtip('destroy',true)
 					}
 					
 			 }
