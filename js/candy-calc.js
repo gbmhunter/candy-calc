@@ -33,11 +33,12 @@ var unit = function(name, multiplier) {
 	};
 	
 // "Class" for validator object, which holds both a message and validator function
-function validator(msg, fn, app)
+function validator(app, msg, fn, severity)
 {
-	this.msg = msg;
-	this.fn = fn;
 	this.app = app;
+	this.msg = msg;
+	this.fn = fn;	
+	this.severity = severity;
 }
 
 // Candy-calc "namespace"
@@ -48,6 +49,13 @@ var cc = new function()
 		'IS_NUMBER' 				: 1,
 		'IS_POSITIVE_OR_ZERO' 	: 2,
 		'IS_NEGATIVE_OR_ZERO' 	: 3
+	}
+	
+	// Enumeration of severity levels for validators. Severity level
+	// determines background colour of variable.
+	this.severityEnum = {
+		'warning' 				: 1,
+		'error' 					: 2
 	}
 
 	// "Class" for a calc variable
@@ -64,8 +72,6 @@ var cc = new function()
 
 		// Holds all validator functions
 		this.validatorA = ko.observableArray();
-		
-		//this.triggeredValidator = ko.observable();
 		
 		this.trigIndex = ko.observable();
 		
@@ -94,7 +100,7 @@ var cc = new function()
 		
 		// Methods
 		
-		this.AddValidator = function(validatorEnum)
+		this.AddValidator = function(validatorEnum, severity)
 		{
 			switch(validatorEnum)
 			{
@@ -102,13 +108,14 @@ var cc = new function()
 					console.log('Adding IS_NUMBER validator.');
 					this.validatorA.push(
 						new validator(
+							this,
 							'Value must be a number!',
 							function(variable)
 							{
 								console.log('Testing ' + variable.val());
 								return jQuery.isNumeric(variable.val());
 							}, 
-							this)
+							severity)
 					);
 					break;
 				//case default:
@@ -116,11 +123,11 @@ var cc = new function()
 			}
 		}
 		
-		this.AddCustomValidator = function(msg, fn, app)
+		this.AddCustomValidator = function(app, msg, fn, severity)
 		{
 			// Create new validator object and add to the end of the array
 			Log('Adding new custom validator.');
-			this.validatorA.push(new validator(msg, fn, app));
+			this.validatorA.push(new validator(app, msg, fn, severity));
 		}
 		
 		
@@ -179,10 +186,10 @@ var cc = new function()
 		);
 				
 		// Methods
-		this.AddCustomValidator = function(msg, fn, app)
+		this.AddCustomValidator = function(app, msg, fn)
 		{
 			// Create new validator object and add to the end of the array
-			this.validatorA.push(new validator(msg, fn, app));
+			this.validatorA.push(new validator(app, msg, fn));
 		}
 				
 	};
@@ -268,13 +275,24 @@ jQuery(document).ready(
 							});
 							
 						// Since validator returned false, add notValid class for CSS to render red
-						jQuery(element).addClass("notValid"); 						
+						Log(cc);
+						if(valueAccessor().validatorA()[valueAccessor().trigIndex()].severity == cc.severityEnum.warning)
+						{
+							jQuery(element).removeClass('error'); 
+							jQuery(element).addClass('warning'); 	
+						}							
+						else if(valueAccessor().validatorA()[valueAccessor().trigIndex()].severity == cc.severityEnum.error)
+						{
+							jQuery(element).removeClass("warning");
+							jQuery(element).addClass('error'); 
+						}
 					}
 					else // Validator returned true, value passed this test
 					{
 						Log('Removing notValid class and disabling tooltip.');
 						// Remove notValid class to make green again
-						jQuery(element).removeClass("notValid");
+						jQuery(element).removeClass("warning");
+						jQuery(element).removeClass("error");
 						// Disable tooltip which showed any errors
 						//jQuery(element).qtip('disable', true);
 						jQuery(element).qtip('destroy',true)

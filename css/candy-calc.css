@@ -44,13 +44,25 @@ invalid values */
 	box-shadow: 0 0 10px #9ecaed;
 }
 
-/* Make background colour red for not valid variables */
-.input.notValid, .output.notValid {
+/* Make background colour orange for variables with warning class */
+.input.warning, .output.warning {
+	background-color: #FF9C59;
+}
+
+/* Make background colour red for variables with error class */
+.input.error, .output.error {
 	background-color: #FF9999;
 }
 
 /* Make border glow red */
-.input.notValid:focus { 
+.input.warning:focus { 
+	outline: none;
+	border-color: #ff6600;
+	box-shadow: 0 0 10px #9ecaed;
+}
+
+/* Make border glow red */
+.input.error:focus { 
 	outline: none;
 	border-color: #ff0000;
 	box-shadow: 0 0 10px #9ecaed;
