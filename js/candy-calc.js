@@ -58,7 +58,7 @@ var cc = new function()
 		
 		// Scaled value, taking into account the units
 		this.val = ko.computed( function(){
-			return parseFloat(this.dispVal())*parseFloat(this.selUnit().multiplier);
+			return this.dispVal()*this.selUnit().multiplier;
 		},
 		this);
 
@@ -105,8 +105,8 @@ var cc = new function()
 							'Value must be a number!',
 							function(variable)
 							{
-								console.log('Testing');
-								return !isNaN(variable.val());
+								console.log('Testing ' + variable.val());
+								return jQuery.isNumeric(variable.val());
 							}, 
 							this)
 					);
@@ -141,6 +141,7 @@ var cc = new function()
 				var unroundedVal = this.val()/this.selUnit().multiplier;
 				// Round the value
 				var roundedVal = Math.round(unroundedVal*Math.pow(10, this.roundTo))/Math.pow(10, this.roundTo);
+				//var roundedVal = this.val();
 				return roundedVal;
 			},
 			this);				

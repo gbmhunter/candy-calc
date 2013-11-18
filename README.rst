@@ -20,6 +20,25 @@ Description
 
 candy-calc can be used to easily create good looking calculators that run inside a browser (purely on the client-side).
 
+Features:
+	- Support for inputs (user-entered variables) and outputs (calculated variables)
+	- Support for selectable units (e.g. mV, V, kV) and automatic scaling
+	- Built in validators to check consistency of inputs and outputs
+	- Ability to add custom validators to both inputs and outputs (e.g. this y must be > x + 2) 
+	- MathJax support for pretty browser-compatible equations (which can be written using Latex notation)
+	- Configurable CSS file to customise the look to suit your application
+	- Behind-the-scenes binding (candy-calc implements the MVVM model using knockout.js), so you don't have to worry about event handlers
+	- "Namespace" support so you can run more than one calculator inside a web page.
+	- Dependencies are downloaded via CDN to increase page load times
+
+Built-in Validators
+-------------------
+========== ====================
+Name       Description
+========== ====================
+IS_NUMERIC Returns true is number is a numeral, otherwise false. Follows jQuery.isNumeric().
+========== ====================
+
 External Dependencies
 =====================
 
@@ -48,6 +67,7 @@ Changelog
 ========= ========== ============================================================================================================
 Version   Date       Comment
 ========= ========== ============================================================================================================
+v2.0.1.0  2013/11/18 Fixed bug where stuff like '2z' was not being detected as 'not a numeral' because of parseFloat function calls. Added info to built-in validator IS_NUMERAL and features section to README.
 v2.0.0.0  2013/11/18 Added support for pre-defined validators (AddValidator()). Custom validators now called with AddCustomValidator(). qTip is destroyed when non-longer needed to prevent qTips remaining visible when they shouldn't be.
 v1.1.0.0  2013/11/18 Tidied up code, added comments where appropriate. Moved calculator functions into cc 'namespace'. calcInput became cc.input and renamed calcComp object to cc.output.
 v1.0.2.0  2013/11/14 candy-calc now loads jQuery if it has not already been loaded. Fixed some code indenting issues. All debug messages now get turned off if debug is set to false. Moved knockout, MathJax, qTip includes into candy-calc.js rather than making the user include these manually.
