@@ -5,7 +5,7 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2013/11/11
 - Last Modified: 2013/11/21
-- Version: v2.1.2.3
+- Version: v2.1.2.4
 - Company: CladLabs	.
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -46,22 +46,14 @@ External Dependencies
 ============== =============== ===================================================================
 Dependency     Delivery        Usage
 ============== =============== ===================================================================
-|MathJax|      MathJax CDN     Latex rendering of equations.
-|knockout.js|  CDN             Used for it's MVVM framework and binding capabilities.
-|qTip|         CDN             Tooltip library for information on input/output warnings/errors. 
+MathJax_       MathJax CDN     Latex rendering of equations.
+`knockout.js`_ CDN             Used for it's MVVM framework and binding capabilities.
+qTip_          CDN             Tooltip library for information on input/output warnings/errors. 
 ============== =============== ===================================================================
 
-.. |MathJax| raw:: html
-
-   <a href="http://www.mathjax.org/" target="_blank">MathJax</a>
- 
-.. |knockout.js| raw:: html
-
-	<a href="http://knockoutjs.com/" target="_blank">knockout.js</a>
-	
-.. |qTip| raw:: html
-
-	<a href="http://craigsworks.com/projects/qtip/" target="_blank">qTip</a>
+.. _MathJax: http://www.mathjax.org/
+.. _knockout.js: http://knockoutjs.com/
+.. _qTip: http://craigsworks.com/projects/qtip/
 
 Issues
 ======
@@ -84,6 +76,7 @@ Changelog
 ========= ========== ============================================================================================================
 Version   Date       Comment
 ========= ========== ============================================================================================================
+v2.1.2.4  2013/11/21 Fix didn't work, reverting to old external link style (no new window).
 v2.1.2.3  2013/11/21 Attempt to fix broken README links.
 v2.1.2.2  2013/11/21 Made external README links open a new window. Fixes #18.
 v2.1.2.1  2013/11/21 Added information to README about tooltip support. Tabulated the external dependencies in the README and added qTip. Added external links to dependencies. Closes #11, closes #16, closes #17.
