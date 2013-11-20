@@ -5,7 +5,7 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2013/11/11
 - Last Modified: 2013/11/21
-- Version: v2.1.2.0
+- Version: v2.1.2.1
 - Company: CladLabs	.
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -25,6 +25,7 @@ Features:
 	- Support for selectable units (e.g. mV, V, kV) and automatic scaling
 	- Built in validators to check consistency of inputs and outputs
 	- Ability to add custom validators to both inputs and outputs (e.g. this y must be > x + 2) 
+	- Inline tooltip support for warnings/errors to inform the user about what is wrong
 	- MathJax support for pretty browser-compatible equations (which can be written using Latex notation)
 	- Configurable CSS file to customise the look to suit your application
 	- Behind-the-scenes binding (candy-calc implements the MVVM model using knockout.js), so you don't have to worry about event handlers
@@ -42,9 +43,17 @@ IS_NUMERIC Returns true is number is a numeral, otherwise false. Follows jQuery.
 External Dependencies
 =====================
 
-MathJax (delivered through MathJax CDN) for latex rendering of equations.
+============== =============== ===================================================================
+Dependency     Delivery        Usage
+============== =============== ===================================================================
+MathJax_       MathJax CDN     Latex rendering of equations.
+`knockout.js`_ CDN             Used for it's MVVM framework and binding capabilities.
+qTip_          CDN             Tooltip library for information on input/output warnings/errors. 
+============== =============== ===================================================================
 
-knockout.js (delivered through CDN) for MVVM framework.
+.. _MathJax: http://www.mathjax.org/
+.. _knockout.js: http://knockoutjs.com/
+.. _qTip: http://craigsworks.com/projects/qtip/
 
 Issues
 ======
@@ -67,6 +76,7 @@ Changelog
 ========= ========== ============================================================================================================
 Version   Date       Comment
 ========= ========== ============================================================================================================
+v2.1.2.1  2013/11/21 Added information to README about tooltip support. Tabulated the external dependencies in the README and added qTip. Added external links to dependencies. Closes #11, closes #16, closes #17.
 v2.1.2.0  2013/11/21 Made sure no debug messages are printed when debug = false. Tooltip now displays 'Warning' title when severity is warning. Background colour of warning tooltip is now orange. Closes #15, closes #14, closes #12.
 v2.1.1.0  2013/11/20 Deleted some commented code.
 v2.1.0.0  2013/11/18 Added support for validator severity levels. Add CSS to colour warnings and errors differently.
