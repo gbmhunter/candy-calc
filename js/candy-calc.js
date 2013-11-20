@@ -207,36 +207,18 @@ jQuery(document).ready(
 		ko.bindingHandlers.calcVar = {
 			init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
 				// This will be called when the binding is first applied to an element
-				// Set up any initial state, event handlers, etc. here
-				//Log(valueAccessor()().rawVal());
+				// Set up any initial state, event handlers, etc. here						
+				
 				// Call value binding (child binding)
-				ko.bindingHandlers.value.init(element, function (){ return valueAccessor().dispVal } , allBindings, viewModel, bindingContext);
+				ko.bindingHandlers.value.init(
+					element,
+					function (){ return valueAccessor().dispVal } ,
+					allBindings,
+					viewModel,
+					bindingContext);
 				  
 				// Create Opentip (tooltip) for input box
-				Log('Initialising calculator variable handlers');
-				/*
-				jQuery(element).qtip({ // Grab some elements to apply the tooltip to
-					content: {
-						text: '',
-						title: 'Error!'
-					},
-					style: {
-						classes: 'qtip-red qtip-rounded qtip-shadow'
-					},
-					show: {
-						effect: function(offset) {
-							jQuery(this).slideDown(100); // "this" refers to the tooltip
-						}
-					},
-					hide: {
-						effect: function(offset) {
-							jQuery(this).slideDown(100); // "this" refers to the tooltip
-						}
-					}
-				})
-				// We want this disabled by default.
-				jQuery(element).qtip('disable', true);
-				*/
+				Log('Initialising calculator variable handlers');			
 								
 			 },
 			 update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {

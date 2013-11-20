@@ -4,8 +4,8 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2013/11/11
-- Last Modified: 2013/11/18
-- Version: v2.1.0.0
+- Last Modified: 2013/11/20
+- Version: v2.1.1.0
 - Company: CladLabs	.
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -67,6 +67,7 @@ Changelog
 ========= ========== ============================================================================================================
 Version   Date       Comment
 ========= ========== ============================================================================================================
+v2.1.1.0  2013/11/20 Deleted some commented code.
 v2.1.0.0  2013/11/18 Added support for validator severity levels. Add CSS to colour warnings and errors differently.
 v2.0.1.0  2013/11/18 Fixed bug where stuff like '2z' was not being detected as 'not a numeral' because of parseFloat function calls. Added info to built-in validator IS_NUMERAL and features section to README.
 v2.0.0.0  2013/11/18 Added support for pre-defined validators (AddValidator()). Custom validators now called with AddCustomValidator(). qTip is destroyed when non-longer needed to prevent qTips remaining visible when they shouldn't be.
