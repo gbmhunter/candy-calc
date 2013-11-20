@@ -8,7 +8,7 @@
 //				See the README in the repo root dir for more info.
 
 // Debug flag. Set to true to print debug information, otherwise false.
-var DEBUG = true;
+var DEBUG = false;
 
 // Load jQuery if not already loaded	
 window.jQuery || document.write('<script src="http://code.jquery.com/jquery-latest.min.js"><\/script>');
@@ -105,14 +105,14 @@ var cc = new function()
 			switch(validatorEnum)
 			{
 				case cc.validatorEnum.IS_NUMBER:
-					console.log('Adding IS_NUMBER validator.');
+					Log('Adding IS_NUMBER validator.');
 					this.validatorA.push(
 						new validator(
 							this,
 							'Value must be a number!',
 							function(variable)
 							{
-								console.log('Testing ' + variable.val());
+								Log('Testing ' + variable.val());
 								return jQuery.isNumeric(variable.val());
 							}, 
 							severity)
@@ -195,9 +195,6 @@ var cc = new function()
 	};
 };
 
-	
-
-
 // Stuff to execute on start-up
 // - Register custom binding handler
 jQuery(document).ready(
@@ -232,10 +229,44 @@ jQuery(document).ready(
 					if(valueAccessor().isValid() == false) // Validator returned false, value did not pass this test
 					{
 						Log('Activating tooltip.');
-						//jQuery(element).qtip('disable', false);
+						// jQuery(element).qtip('disable', false);
 						// Note that the only way I have found to successfully replace the tooltip text is
 						// to create an entirely new object. This is not the ideal method!
-						jQuery(element).qtip({
+						
+							
+						// Since validator returned false, add notValid class for CSS to render red
+						if(valueAccessor().validatorA()[valueAccessor().trigIndex()].severity == cc.severityEnum.warning)
+						{
+							jQuery(element).removeClass('error'); 
+							jQuery(element).addClass('warning'); 	
+							
+							jQuery(element).qtip({
+								content: {
+									// Grab the text shown the the triggered validator object
+									text: valueAccessor().validatorA()[valueAccessor().trigIndex()].msg,
+									title: 'Warning!'
+								},
+								style: {
+									classes: 'qtip-orange qtip-rounded qtip-shadow'
+								},
+								show: {
+									effect: function(offset) {
+										jQuery(this).slideDown(100); // "this" refers to the tooltip
+									}
+								},
+								hide: {
+									effect: function(offset) {
+										jQuery(this).slideDown(100); // "this" refers to the tooltip
+									}
+								}
+							});
+						}							
+						else if(valueAccessor().validatorA()[valueAccessor().trigIndex()].severity == cc.severityEnum.error)
+						{
+							jQuery(element).removeClass("warning");
+							jQuery(element).addClass('error'); 
+							
+							jQuery(element).qtip({
 								content: {
 									// Grab the text shown the the triggered validator object
 									text: valueAccessor().validatorA()[valueAccessor().trigIndex()].msg,
@@ -255,18 +286,6 @@ jQuery(document).ready(
 									}
 								}
 							});
-							
-						// Since validator returned false, add notValid class for CSS to render red
-						Log(cc);
-						if(valueAccessor().validatorA()[valueAccessor().trigIndex()].severity == cc.severityEnum.warning)
-						{
-							jQuery(element).removeClass('error'); 
-							jQuery(element).addClass('warning'); 	
-						}							
-						else if(valueAccessor().validatorA()[valueAccessor().trigIndex()].severity == cc.severityEnum.error)
-						{
-							jQuery(element).removeClass("warning");
-							jQuery(element).addClass('error'); 
 						}
 					}
 					else // Validator returned true, value passed this test
