@@ -5,7 +5,7 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2013/11/11
 - Last Modified: 2013/11/21
-- Version: v2.1.2.2
+- Version: v2.1.2.3
 - Company: CladLabs	.
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -52,12 +52,15 @@ Dependency     Delivery        Usage
 ============== =============== ===================================================================
 
 .. |MathJax| raw:: html
+
    <a href="http://www.mathjax.org/" target="_blank">MathJax</a>
  
 .. |knockout.js| raw:: html
+
 	<a href="http://knockoutjs.com/" target="_blank">knockout.js</a>
 	
 .. |qTip| raw:: html
+
 	<a href="http://craigsworks.com/projects/qtip/" target="_blank">qTip</a>
 
 Issues
@@ -81,6 +84,7 @@ Changelog
 ========= ========== ============================================================================================================
 Version   Date       Comment
 ========= ========== ============================================================================================================
+v2.1.2.3  2013/11/21 Attempt to fix broken README links.
 v2.1.2.2  2013/11/21 Made external README links open a new window. Fixes #18.
 v2.1.2.1  2013/11/21 Added information to README about tooltip support. Tabulated the external dependencies in the README and added qTip. Added external links to dependencies. Closes #11, closes #16, closes #17.
 v2.1.2.0  2013/11/21 Made sure no debug messages are printed when debug = false. Tooltip now displays 'Warning' title when severity is warning. Background colour of warning tooltip is now orange. Closes #15, closes #14, closes #12.
