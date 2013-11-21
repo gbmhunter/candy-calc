@@ -42,6 +42,7 @@ function validator(app, msg, fn, severity)
 }
 
 // Candy-calc "namespace"
+// All candy-calc framework should be inside this
 var cc = new function()
 {
 	// Enumeration of pre-defined validators
@@ -56,6 +57,30 @@ var cc = new function()
 	this.severityEnum = {
 		'warning' 				: 1,
 		'error' 					: 2
+	}
+	
+	// This function links two unit sets together, so that when sourceUnit is changed,
+	// destinationUnit is changed also.
+	// Note, does not work correctly yet! destination variable does not update select box
+	this.linkUnits = function(sourceCalcVar, destinationCalcVar)
+	{
+		Log('Linking units...');
+		Log('sourceCalcVar.selUnit = ');
+		Log(sourceCalcVar.selUnit());
+		Log('destinationCalcVar.selUnit = ');
+		Log(destinationCalcVar.selUnit());
+		// Destination selUnit is now a computed variable
+		destinationCalcVar.selUnit = ko.computed(
+			function(){
+				Log('!!!!Changing destination units');
+				Log('sourceCalcVar.selUnit() = ');
+				Log(sourceCalcVar.selUnit());
+				Log('destinationCalcVar.selUnit = ');
+				Log(destinationCalcVar.selUnit());
+			// Make it equal to the source variables selected unit
+				return sourceCalcVar.selUnit();
+			},
+			this);
 	}
 
 	// "Class" for a calc variable
@@ -133,7 +158,7 @@ var cc = new function()
 		
    }; // this.input
 	
-	this.output = function(app, compFn, validatorFn, units, selUnit) {
+	this.output = function(app, compFn, validatorFn, units, selUnit, roundTo) {
 			
 		this.units = ko.observableArray(units);
 		this.selUnit = ko.observable(this.units()[selUnit]);
@@ -141,7 +166,10 @@ var cc = new function()
 		this.val = ko.computed(compFn, app);
 		
 		// Number of decimal places to round value to
-		this.roundTo = 1;
+		if(roundTo != null)
+			this.roundTo = roundTo;
+		else
+			this.roundTo = 1;
 		
 		// This is the displayed value
 		this.dispVal = ko.computed(function(){

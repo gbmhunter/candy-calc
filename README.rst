@@ -76,6 +76,7 @@ Changelog
 ========= ========== ============================================================================================================
 Version   Date       Comment
 ========= ========== ============================================================================================================
+v2.2.0.0  2013/11/21 Added linkUnits() function. Closes #20, although it doesn't work correctly yet.
 v2.1.2.4  2013/11/21 Fix didn't work, reverting to old external link style (no new window).
 v2.1.2.3  2013/11/21 Attempt to fix broken README links.
 v2.1.2.2  2013/11/21 Made external README links open a new window. Fixes #18.
