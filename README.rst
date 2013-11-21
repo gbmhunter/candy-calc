@@ -4,8 +4,8 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2013/11/11
-- Last Modified: 2013/11/21
-- Version: v2.1.2.4
+- Last Modified: 2013/11/22
+- Version: v2.3.0.0
 - Company: CladLabs	.
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -29,7 +29,7 @@ Features:
 	- MathJax support for pretty browser-compatible equations (which can be written using Latex notation)
 	- Configurable CSS file to customise the look to suit your application
 	- Behind-the-scenes binding (candy-calc implements the MVVM model using knockout.js), so you don't have to worry about event handlers
-	- "Namespace" support so you can run more than one calculator inside a web page.
+	- You can run more than one calculator inside a web page.
 	- Dependencies are downloaded via CDN to increase page load times
 
 Built-in Validators
@@ -76,6 +76,7 @@ Changelog
 ========= ========== ============================================================================================================
 Version   Date       Comment
 ========= ========== ============================================================================================================
+v2.3.0.0  2013/11/22 Added support for multiple calculators to run on the same page, using the ``cc.registerCalc()`` API. Closes #21.
 v2.2.0.0  2013/11/21 Added linkUnits() function. Closes #20, although it doesn't work correctly yet.
 v2.1.2.4  2013/11/21 Fix didn't work, reverting to old external link style (no new window).
 v2.1.2.3  2013/11/21 Attempt to fix broken README links.

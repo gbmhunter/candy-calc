@@ -83,6 +83,20 @@ var cc = new function()
 			this);
 	}
 
+	// Registers a calculator so that the bindings will be applied when the page is 
+	// loaded. 
+	this.registerCalc = function(viewModel, htmlId)
+	{
+		// Start-up function
+		jQuery(document).ready(
+			function StartUp()
+			{	  		
+				// Activates knockout.js for a particular HTML object only	
+				ko.applyBindings(new viewModel(), document.getElementById(htmlId));	
+			}
+		);
+	}
+	
 	// "Class" for a calc variable
 	this.input = function(app, validatorFn, units, selUnit) {
 		this.dispVal = ko.observable();
@@ -339,4 +353,6 @@ function Log(msg)
 	if(DEBUG == true)
 		console.log(msg);
 }
+
+
 
