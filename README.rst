@@ -5,7 +5,7 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2013/11/11
 - Last Modified: 2013/11/22
-- Version: v2.3.0.0
+- Version: v2.3.1.0
 - Company: CladLabs	.
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -73,9 +73,10 @@ This repo is designed so that you can clone it directly (using SSH) into a web s
 Changelog
 =========
 
-========= ========== ============================================================================================================
+========= ========== ========================================================================================================
 Version   Date       Comment
-========= ========== ============================================================================================================
+========= ========== ========================================================================================================
+v2.3.1.0  2013/11/22 Moved ``unit`` and ``validator`` objects to inside the ``cc`` object. Closes #8, closes #9.
 v2.3.0.0  2013/11/22 Added support for multiple calculators to run on the same page, using the ``cc.registerCalc()`` API. Closes #21.
 v2.2.0.0  2013/11/21 Added linkUnits() function. Closes #20, although it doesn't work correctly yet.
 v2.1.2.4  2013/11/21 Fix didn't work, reverting to old external link style (no new window).

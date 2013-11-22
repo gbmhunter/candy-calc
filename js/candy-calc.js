@@ -26,21 +26,6 @@ document.write('<link type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.
 // JS. Include either the minifed or production version, not both
 document.write('<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/qtip2/2.1.0/jquery.qtip.min.js"></script>');
 
-// Calculator unit object
-var unit = function(name, multiplier) {
-        this.name = name;
-        this.multiplier = multiplier;
-	};
-	
-// "Class" for validator object, which holds both a message and validator function
-function validator(app, msg, fn, severity)
-{
-	this.app = app;
-	this.msg = msg;
-	this.fn = fn;	
-	this.severity = severity;
-}
-
 // Candy-calc "namespace"
 // All candy-calc framework should be inside this
 var cc = new function()
@@ -57,6 +42,21 @@ var cc = new function()
 	this.severityEnum = {
 		'warning' 				: 1,
 		'error' 					: 2
+	}
+	
+	// Calculator unit object
+	this.unit = function(name, multiplier) {
+			  this.name = name;
+			  this.multiplier = multiplier;
+	};
+	
+	// "Class" for validator object, which holds both a message and validator function
+	this.validator = function(app, msg, fn, severity)
+	{
+		this.app = app;
+		this.msg = msg;
+		this.fn = fn;	
+		this.severity = severity;
 	}
 	
 	// This function links two unit sets together, so that when sourceUnit is changed,
@@ -146,7 +146,7 @@ var cc = new function()
 				case cc.validatorEnum.IS_NUMBER:
 					Log('Adding IS_NUMBER validator.');
 					this.validatorA.push(
-						new validator(
+						new cc.validator(
 							this,
 							'Value must be a number!',
 							function(variable)
@@ -166,7 +166,7 @@ var cc = new function()
 		{
 			// Create new validator object and add to the end of the array
 			Log('Adding new custom validator.');
-			this.validatorA.push(new validator(app, msg, fn, severity));
+			this.validatorA.push(new cc.validator(app, msg, fn, severity));
 		}
 		
 		
