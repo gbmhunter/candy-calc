@@ -243,7 +243,7 @@ var cc = new function()
 				
 	};
 	
-	this.variable = function(app, compFn, validatorFn, units, selUnit, roundTo, stateFn)
+	this.variable = function(app, eqFn, validatorFn, units, selUnit, roundTo, stateFn)
 	{
 			
 		// Available units for this variable	
@@ -252,39 +252,42 @@ var cc = new function()
 		// The selected unit for this variable
 		this.selUnit = ko.observable(this.units()[selUnit]);
 		
-		// The actual value for this variable. This is always in SI without any unit postfix.
-		// (e.g. V, Hz, never mV, kHz or MHz)
-		this.val = ko.computed(compFn, app);
+		// This value "shadows" the .val variable. Needed when variable maybe an input or an output
+		this.shadowVal = ko.observable();
 		
+		this.app = app;		
+				
 		// This determines whether the variable is an input or an output
 		this.state = ko.computed(stateFn, app);
 		
-		this.compFn = compFn;
-		this.app = app;
-		this.stateInt = ko.computed(
-			function()
-			{
-				console.log('stateInt called for ');
-				console.log(this);
-				console.log('this.state = ');
-				console.log(this.state());
-				if(this.state() == cc.stateEnum.input)
+		// Build the computed function up from the provided compFn, and internal stuff to make it able
+		// to be both an input or an output
+		
+		// The actual value for this variable. This is always in SI without any unit postfix.
+		// (e.g. V, Hz, never mV, kHz or MHz)
+		this.val = ko.computed({
+			read: function () {
+				if(this.state() == cc.stateEnum.output)
 				{
-					console.log('Setting as input.');
-					//this.val = ko.observable();
-				}
-				else if(this.state() == cc.stateEnum.output)
-				{
-					console.log('Setting as output.');
-					console.log('compFn = ');
-					console.log(this.compFn);
-					//this.val = ko.computed(this.compFn, this.app);
+					console.log('Calculating variable and writing to shadow variable.');
+					// Calculate the value based on the provided
+					// equation
+					var value = eqFn.call(app);
+					this.shadowVal(value)
+					return value ;
 				}
 				else
-					console.log('ERROR: State was not recognised.');
+				{
+					console.log('Reading from shadow variable.');
+					return this.shadowVal();
+				}
 			},
-			this
-		);
+			write: function (value) {
+				console.log('Writing to shadow variable');
+				this.shadowVal(value);
+			},
+			owner: this
+		});
 		
 		// Number of decimal places to round value to
 		if(roundTo != null)
