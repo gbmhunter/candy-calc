@@ -4,8 +4,8 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2013/11/11
-- Last Modified: 2013/11/22
-- Version: v2.3.1.0
+- Last Modified: 2013/11/23
+- Version: v3.0.0.0
 - Company: CladLabs	.
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -76,6 +76,7 @@ Changelog
 ========= ========== ========================================================================================================
 Version   Date       Comment
 ========= ========== ========================================================================================================
+v3.0.0.0  2013/11/23 Working on support for variables which can be both inputs and outputs (depending on say, whether a radio button is selected). This is to get the Ohms Law calculator working correctly.
 v2.3.1.0  2013/11/22 Moved ``unit`` and ``validator`` objects to inside the ``cc`` object. Closes #8, closes #9.
 v2.3.0.0  2013/11/22 Added support for multiple calculators to run on the same page, using the ``cc.registerCalc()`` API. Closes #21.
 v2.2.0.0  2013/11/21 Added linkUnits() function. Closes #20, although it doesn't work correctly yet.

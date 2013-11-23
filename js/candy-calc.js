@@ -44,6 +44,12 @@ var cc = new function()
 		'error' 					: 2
 	}
 	
+	// Used to determine whether variable is an input or an output
+	this.stateEnum = {
+		'input'					: 1,
+		'output'					: 2
+	}
+	
 	// Calculator unit object
 	this.unit = function(name, multiplier) {
 			  this.name = name;
@@ -91,8 +97,9 @@ var cc = new function()
 		jQuery(document).ready(
 			function StartUp()
 			{	  		
+				console.log(viewModel);
 				// Activates knockout.js for a particular HTML object only	
-				ko.applyBindings(new viewModel(), document.getElementById(htmlId));	
+				ko.applyBindings(new viewModel, document.getElementById(htmlId));	
 			}
 		);
 	}
@@ -194,6 +201,109 @@ var cc = new function()
 				return roundedVal;
 			},
 			this);				
+		
+		this.lowerBound = 0; //ko.observable(lowerBound);
+		this.upperBound = 0; //ko.observable(upperBound);
+
+		// Holds all validator functions
+		this.validatorA = ko.observableArray();
+		
+		this.trigIndex = ko.observable();
+		
+		// Default is to just return true.
+		this.isValid = ko.computed(
+			function()
+			{
+				Log('Computing isValid for output.');
+				Log('Validator array length = ' + this.validatorA().length);
+				for (var i = 0; i < this.validatorA().length; i++) {
+					if(this.validatorA()[i].fn(this.validatorA()[i].app) == false)
+					{
+						// Remember the validator which returned false
+						//this.triggeredValidator(this.validatorA()[i]);
+						Log('Setting index.');
+						this.trigIndex(i);
+						Log('Returning false.');
+						return false;
+					}
+				}
+				// Only gets here if no validator function returned false
+				Log('Returning true.');
+				return true;
+			},
+			this
+		);
+				
+		// Methods
+		this.AddCustomValidator = function(app, msg, fn)
+		{
+			// Create new validator object and add to the end of the array
+			this.validatorA.push(new validator(app, msg, fn));
+		}
+				
+	};
+	
+	this.variable = function(app, compFn, validatorFn, units, selUnit, roundTo, stateFn)
+	{
+			
+		// Available units for this variable	
+		this.units = ko.observableArray(units);
+		
+		// The selected unit for this variable
+		this.selUnit = ko.observable(this.units()[selUnit]);
+		
+		// The actual value for this variable. This is always in SI without any unit postfix.
+		// (e.g. V, Hz, never mV, kHz or MHz)
+		this.val = ko.computed(compFn, app);
+		
+		// This determines whether the variable is an input or an output
+		this.state = ko.computed(stateFn, app);
+		
+		this.compFn = compFn;
+		this.app = app;
+		this.stateInt = ko.computed(
+			function()
+			{
+				console.log('stateInt called for ');
+				console.log(this);
+				console.log('this.state = ');
+				console.log(this.state());
+				if(this.state() == cc.stateEnum.input)
+				{
+					console.log('Setting as input.');
+					//this.val = ko.observable();
+				}
+				else if(this.state() == cc.stateEnum.output)
+				{
+					console.log('Setting as output.');
+					console.log('compFn = ');
+					console.log(this.compFn);
+					//this.val = ko.computed(this.compFn, this.app);
+				}
+				else
+					console.log('ERROR: State was not recognised.');
+			},
+			this
+		);
+		
+		// Number of decimal places to round value to
+		if(roundTo != null)
+			this.roundTo = roundTo;
+		else
+			this.roundTo = 1;
+		
+		// This is the displayed value
+		this.dispVal = ko.computed(
+			function(){
+				console.log(this);
+				var unroundedVal = this.val()/this.selUnit().multiplier;
+				// Round the value
+				var roundedVal = Math.round(unroundedVal*Math.pow(10, this.roundTo))/Math.pow(10, this.roundTo);
+				//var roundedVal = this.val();
+				return roundedVal;
+			},
+			this
+		);				
 		
 		this.lowerBound = 0; //ko.observable(lowerBound);
 		this.upperBound = 0; //ko.observable(upperBound);
