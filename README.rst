@@ -5,7 +5,7 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2013/11/11
 - Last Modified: 2013/11/24
-- Version: v3.2.0.0
+- Version: v3.2.0.1
 - Company: CladLabs
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -74,9 +74,10 @@ This repo is designed so that you can clone it directly (using SSH) into a web s
 Changelog
 =========
 
-========= ========== ========================================================================================================
+========= ========== ==============================================================================================
 Version   Date       Comment
-========= ========== ========================================================================================================
+========= ========== ==============================================================================================
+v3.2.0.1  2013/11/24 Attempt to fix rendering of Changelog in README.
 v3.2.0.0  2013/11/24 Added rounding and unit support for the all-in-one ``cc.variable``. Renamed ``variable.shadowVal`` to ``variable.val`` and ``variable.val`` to ``variable.dispVal``, as the old ``dispVal`` was now redundant.
 v3.1.0.0  2013/11/24 Basic all-in-one variable support working with ``cc.variable``. Uses shadow variables and separate read/write functions to achieve selectable input/output support. Added relevant info to README.
 v3.0.0.0  2013/11/23 Working on support for variables which can be both inputs and outputs (depending on say, whether a radio button is selected). This is to get the Ohms Law calculator working correctly.
@@ -98,4 +99,4 @@ v1.0.1.0  2013/11/14 Gave the calculator outputs a smaller border and made them 
 v1.0.0.0  2013/11/14 Core Javascript code added (in folder /js/), basic calculator functionality works.
 v0.2.0.0  2013/11/12 Added more CSS to style the candy-calc tables. Centered all columns except the description column. Made the input box smaller. Made the table width a percentage of the parent element rather than a fixed pixel width.
 v0.1.0.0  2013/11/11 Initial commit. Repo currently only has CSS file and simple README, calculator engine has not been added yet.
-========= ========== ============================================================================================================
+========= ========== ==============================================================================================
