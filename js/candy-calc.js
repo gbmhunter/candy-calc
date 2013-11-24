@@ -252,20 +252,19 @@ var cc = new function()
 		// The selected unit for this variable
 		this.selUnit = ko.observable(this.units()[selUnit]);
 		
-		// This value "shadows" the .val variable. Needed when variable maybe an input or an output
-		this.shadowVal = ko.observable();
+		// This value is the actual value, stored in the background. dispVal is what the
+		// user sees. This is always in SI without any unit postfix.
+		// (e.g. V, Hz, never mV, kHz or MHz)
+		this.val = ko.observable();
 		
 		this.app = app;		
 				
 		// This determines whether the variable is an input or an output
 		this.state = ko.computed(stateFn, app);
 		
-		// Build the computed function up from the provided compFn, and internal stuff to make it able
-		// to be both an input or an output
-		
-		// The actual value for this variable. This is always in SI without any unit postfix.
-		// (e.g. V, Hz, never mV, kHz or MHz)
-		this.val = ko.computed({
+		// This is the value that the user sees. It modifies the actual value, variable.val, 
+		// which is kept in the background
+		this.dispVal = ko.computed({
 			read: function () {
 				if(this.state() == cc.stateEnum.output)
 				{
@@ -273,18 +272,30 @@ var cc = new function()
 					// Calculate the value based on the provided
 					// equation
 					var value = eqFn.call(app);
-					this.shadowVal(value)
-					return value ;
+					
+					// Scale value
+					value = value/this.selUnit().multiplier
+					
+					// Store it
+					this.val(value);
+					
+					// Now round it
+					value = Math.round(value*Math.pow(10, this.roundTo))/Math.pow(10, this.roundTo);
+					
+					// Return rounded value
+					return value;
 				}
 				else
 				{
 					console.log('Reading from shadow variable.');
-					return this.shadowVal();
+					console.log(this);
+					return this.val()/this.selUnit().multiplier;
 				}
 			},
 			write: function (value) {
-				console.log('Writing to shadow variable');
-				this.shadowVal(value);
+				console.log('Writing ' + value*this.selUnit().multiplier + ' to shadow variable');
+				//console.log(this.val());
+				this.val(value*this.selUnit().multiplier);
 			},
 			owner: this
 		});
@@ -295,18 +306,21 @@ var cc = new function()
 		else
 			this.roundTo = 1;
 		
+		/*
 		// This is the displayed value
 		this.dispVal = ko.computed(
 			function(){
+				console.log('Computing displayed value.');
 				console.log(this);
 				var unroundedVal = this.val()/this.selUnit().multiplier;
 				// Round the value
 				var roundedVal = Math.round(unroundedVal*Math.pow(10, this.roundTo))/Math.pow(10, this.roundTo);
 				//var roundedVal = this.val();
+				console.log('Displayed value = ' + roundedVal);
 				return roundedVal;
 			},
 			this
-		);				
+		);	*/			
 		
 		this.lowerBound = 0; //ko.observable(lowerBound);
 		this.upperBound = 0; //ko.observable(upperBound);
@@ -373,13 +387,18 @@ jQuery(document).ready(
 				Log('Initialising calculator variable handlers');			
 								
 			 },
-			 update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-				  // This will be called once when the binding is first applied to an element,
-				  // and again whenever the associated observable changes value.
-				  // Update the DOM element based on the supplied values here.
+			update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+				// This will be called once when the binding is first applied to an element,
+				// and again whenever the associated observable changes value.
+				// Update the DOM element based on the supplied values here.
 		
-				  // Call value binding (child binding)
-				  ko.bindingHandlers.value.update(element, function (){ return valueAccessor().dispVal } , allBindings, viewModel, bindingContext);
+				// Call value binding (child binding)
+				ko.bindingHandlers.value.update(
+					element,
+					function (){ return valueAccessor().dispVal },
+					allBindings,
+					viewModel,
+					bindingContext);
 				  																				
 					if(valueAccessor().isValid() == false) // Validator returned false, value did not pass this test
 					{

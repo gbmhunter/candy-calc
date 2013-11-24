@@ -5,7 +5,7 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2013/11/11
 - Last Modified: 2013/11/24
-- Version: v3.1.0.0
+- Version: v3.2.0.0
 - Company: CladLabs
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -77,6 +77,7 @@ Changelog
 ========= ========== ========================================================================================================
 Version   Date       Comment
 ========= ========== ========================================================================================================
+v3.2.0.0  2013/11/24 Added rounding and unit support for the all-in-one ``cc.variable``. Renamed ``variable.shadowVal`` to ``variable.val`` and ``variable.val`` to ``variable.dispVal``, as the old ``dispVal`` was now redundant.
 v3.1.0.0  2013/11/24 Basic all-in-one variable support working with ``cc.variable``. Uses shadow variables and separate read/write functions to achieve selectable input/output support. Added relevant info to README.
 v3.0.0.0  2013/11/23 Working on support for variables which can be both inputs and outputs (depending on say, whether a radio button is selected). This is to get the Ohms Law calculator working correctly.
 v2.3.1.0  2013/11/22 Moved ``unit`` and ``validator`` objects to inside the ``cc`` object. Closes #8, closes #9.
