@@ -5,7 +5,7 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2013/11/11
 - Last Modified: 2013/11/26
-- Version: v3.2.1.0
+- Version: v4.0.0.0
 - Company: CladLabs
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -77,6 +77,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v4.0.0.0  2013/11/25 Added jStorage library as git submodule into ``/lib/jStorage``. This is going to be used to store (for remembering) calculator variables on the user's device.
 v3.2.1.0  2013/11/26 Removed ``console.log(viewModel)`` from ``cc.RegisterCalc()`` as it was causing issues when running on web server.
 v3.2.0.1  2013/11/24 Attempt to fix rendering of Changelog in README.
 v3.2.0.0  2013/11/24 Added rounding and unit support for the all-in-one ``cc.variable``. Renamed ``variable.shadowVal`` to ``variable.val`` and ``variable.val`` to ``variable.dispVal``, as the old ``dispVal`` was now redundant.
