@@ -97,7 +97,6 @@ var cc = new function()
 		jQuery(document).ready(
 			function StartUp()
 			{	  		
-				console.log(viewModel);
 				// Activates knockout.js for a particular HTML object only	
 				ko.applyBindings(new viewModel, document.getElementById(htmlId));	
 			}
