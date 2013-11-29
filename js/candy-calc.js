@@ -267,16 +267,17 @@ var cc = new function()
 			read: function () {
 				if(this.state() == cc.stateEnum.output)
 				{
-					console.log('Calculating variable and writing to shadow variable.');
+					Log('Calculating and writing to underlying variable.');
 					// Calculate the value based on the provided
 					// equation
 					var value = eqFn.call(app);
 					
+					// Storing
+					Log('Storing "' + value + '" in this.val.');
+					this.val(value);
+					
 					// Scale value
 					value = value/this.selUnit().multiplier
-					
-					// Store it
-					this.val(value);
 					
 					// Now round it
 					value = Math.round(value*Math.pow(10, this.roundTo))/Math.pow(10, this.roundTo);
@@ -286,13 +287,13 @@ var cc = new function()
 				}
 				else
 				{
-					console.log('Reading from shadow variable.');
-					console.log(this);
+					Log('Reading from underlying variable ("' + this.val() + '").');
+					//console.log(this);
 					return this.val()/this.selUnit().multiplier;
 				}
 			},
 			write: function (value) {
-				console.log('Writing ' + value*this.selUnit().multiplier + ' to shadow variable');
+				Log('Writing ' + value*this.selUnit().multiplier + ' to underlying variable');
 				//console.log(this.val());
 				this.val(value*this.selUnit().multiplier);
 			},
