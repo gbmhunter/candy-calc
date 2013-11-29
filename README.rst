@@ -77,6 +77,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v4.0.2.0  2013/11/29 Fixed bug where displayed value was being rounded differently depending on whether it was an input or an output, closes #31.
 v4.0.1.0  2013/11/29 Fixed issue with variables values changing wrongly when 'non 1.0' units where selected and the calculated variable was changed, closes #30.
 v4.0.0.0  2013/11/25 Added jStorage library as git submodule into ``/lib/jStorage``. This is going to be used to store (for remembering) calculator variables on the user's device.
 v3.2.1.0  2013/11/26 Removed ``console.log(viewModel)`` from ``cc.RegisterCalc()`` as it was causing issues when running on web server.

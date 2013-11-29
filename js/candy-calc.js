@@ -288,8 +288,16 @@ var cc = new function()
 				else
 				{
 					Log('Reading from underlying variable ("' + this.val() + '").');
-					//console.log(this);
-					return this.val()/this.selUnit().multiplier;
+					
+					var value = this.val();
+					
+					// Scale it
+					value = value/this.selUnit().multiplier
+					
+					// Now round it
+					value = Math.round(value*Math.pow(10, this.roundTo))/Math.pow(10, this.roundTo);
+					
+					return value;
 				}
 			},
 			write: function (value) {
