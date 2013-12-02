@@ -283,7 +283,10 @@ var cc = new function()
 					value = Math.round(value*Math.pow(10, this.roundTo))/Math.pow(10, this.roundTo);
 					
 					// Return rounded value
-					return value;
+					if(isNaN(value))
+						return '';
+					else
+						return value;
 				}
 				else
 				{
@@ -297,7 +300,10 @@ var cc = new function()
 					// Now round it
 					value = Math.round(value*Math.pow(10, this.roundTo))/Math.pow(10, this.roundTo);
 					
-					return value;
+					if(isNaN(value))
+						return '';
+					else
+						return value;
 				}
 			},
 			write: function (value) {
