@@ -16,6 +16,9 @@ window.jQuery || document.write('<script src="http://code.jquery.com/jquery-late
 // Load knockout for binding functionality
 document.write('<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js"></script>');
 
+// Load knockout plugin "knockout-deferred-updates"
+document.write('<script type="text/javascript" src="./candy-calc/lib/knockout-deferred-updates/knockout-deferred-updates.js"></script>');
+
 // MathJax for Latex rendering
 document.write('<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>');
 
@@ -25,6 +28,7 @@ document.write('<script type="text/javascript" src="http://cdn.mathjax.org/mathj
 document.write('<link type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/qtip2/2.1.0/jquery.qtip.min.css" />');
 // JS. Include either the minifed or production version, not both
 document.write('<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/qtip2/2.1.0/jquery.qtip.min.js"></script>');
+
 
 // Candy-calc "namespace"
 // All candy-calc framework should be inside this
@@ -266,7 +270,9 @@ var cc = new function()
 		this.dispVal = ko.computed({
 			read: function () {
 				if(this.state() == cc.stateEnum.output)
-				{
+				{					
+					
+
 					Log('Calculating and writing to underlying variable.');
 					// Calculate the value based on the provided
 					// equation
@@ -276,17 +282,40 @@ var cc = new function()
 					Log('Storing "' + value + '" in this.val.');
 					this.val(value);
 					
+					
 					// Scale value
 					value = value/this.selUnit().multiplier
 					
 					// Now round it
 					value = Math.round(value*Math.pow(10, this.roundTo))/Math.pow(10, this.roundTo);
 					
-					// Return rounded value
-					if(isNaN(value))
+					// If this variable hasn't been initialised yet, return blank
+					if(this.dispVal == null)
+					{
 						return '';
+					}
 					else
+					{
+						// Make sure dependencies are valid
+						for(x = 0; x < this.dispVal.getDependencies().length; x++)
+						{
+							depVar = this.dispVal.getDependencies()[x]();
+							
+							if((typeof depVar == 'undefined'))
+							{
+								Log('A value is still blank!');
+								return '';
+							}
+							if((isNaN(depVar)) && (typeof depVar != 'object'))
+							{
+								Log('Thing is NaN and not an object!');
+								return '';
+							}
+						}
+						
+						// If code reaches here then all dependencies are valid
 						return value;
+					}
 				}
 				else
 				{

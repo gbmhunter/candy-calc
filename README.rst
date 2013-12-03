@@ -5,7 +5,7 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2013/11/11
 - Last Modified: 2013/12/03
-- Version: v5.0.0.0
+- Version: v5.1.0.0
 - Company: CladLabs
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -77,6 +77,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v5.1.0.0  2013/12/03 Added dependency checking using the knockout-deferred-updates library. This library causes the 'Standard Resistance Finder' calculator in 'Js-EngCalcs' to freeze the browser. Will fix this issue.
 v5.0.0.0  2013/12/03 Added the knockout-deferred-updates library as a submodule in ``./lib/``. This is primarily for getting access to the observable dependency tree, so that dependencies can be checked (and not in the compute function) before doing an actual calculation.
 v4.1.0.0  2013/12/02 ``cc.variable()`` now displays '' (blank) if underlying value is ``NaN``. This fixes the issue where it was displaying ``NaN`` if any dependencies are blank (i.e. on start-up), but it does produce the problem where NaN is not displayed if 0/0 occurs (which is a legitimate issue), closes #33.
 v4.0.2.0  2013/11/29 Fixed bug where displayed value was being rounded differently depending on whether it was an input or an output, closes #31.
