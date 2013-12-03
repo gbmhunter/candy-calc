@@ -8,7 +8,7 @@
 //				See the README in the repo root dir for more info.
 
 // Debug flag. Set to true to print debug information, otherwise false.
-var DEBUG = false;
+var DEBUG = true;
 
 // Load jQuery if not already loaded	
 window.jQuery || document.write('<script src="http://code.jquery.com/jquery-latest.min.js"><\/script>');
@@ -306,7 +306,7 @@ var cc = new function()
 								Log('A value is still blank!');
 								return '';
 							}
-							if((isNaN(depVar)) && (typeof depVar != 'object'))
+							if((isNaN(depVar)) && (typeof depVar == 'number'))
 							{
 								Log('Thing is NaN and not an object!');
 								return '';
