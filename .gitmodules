@@ -1,3 +1,6 @@
 [submodule "lib/jStorage"]
 	path = lib/jStorage
 	url = https://github.com/andris9/jStorage.git
+[submodule "lib/knockout-deferred-updates"]
+	path = lib/knockout-deferred-updates
+	url = https://github.com/mbest/knockout-deferred-updates.git
