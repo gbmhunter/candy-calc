@@ -4,8 +4,8 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2013/11/11
-- Last Modified: 2013/12/07
-- Version: v5.1.3.0
+- Last Modified: 2013/12/08
+- Version: v6.0.0.0
 - Company: CladLabs
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -77,6 +77,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v6.0.0.0  2013/12/08 Added 'knockout-postbox' library as git submodule into './lib/knockout-postbox'. This will be used to sync 'ko.observables' and 'ko.computed()' values with each other.
 v5.1.3.0  2013/12/07 Fixed infinite recursion issue with `linkUnits()` function, required unit array for both variables to be the same object.
 v5.1.2.0  2013/12/04 Fixed bug where output variable was not being updated correctly.
 v5.1.0.0  2013/12/03 Added dependency checking using the knockout-deferred-updates library. This library causes the 'Standard Resistance Finder' calculator in 'Js-EngCalcs' to freeze the browser. Will fix this issue.

@@ -4,3 +4,6 @@
 [submodule "lib/knockout-deferred-updates"]
 	path = lib/knockout-deferred-updates
 	url = https://github.com/mbest/knockout-deferred-updates.git
+[submodule "lib/knockout-postbox"]
+	path = lib/knockout-postbox
+	url = https://github.com/rniemeyer/knockout-postbox.git
