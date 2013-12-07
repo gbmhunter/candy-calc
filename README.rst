@@ -4,8 +4,8 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2013/11/11
-- Last Modified: 2013/12/04
-- Version: v5.1.2.0
+- Last Modified: 2013/12/07
+- Version: v5.1.3.0
 - Company: CladLabs
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -77,6 +77,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v5.1.3.0  2013/12/07 Fixed infinite recursion issue with `linkUnits()` function, required unit array for both variables to be the same object.
 v5.1.2.0  2013/12/04 Fixed bug where output variable was not being updated correctly.
 v5.1.0.0  2013/12/03 Added dependency checking using the knockout-deferred-updates library. This library causes the 'Standard Resistance Finder' calculator in 'Js-EngCalcs' to freeze the browser. Will fix this issue.
 v5.0.0.0  2013/12/03 Added the knockout-deferred-updates library as a submodule in ``./lib/``. This is primarily for getting access to the observable dependency tree, so that dependencies can be checked (and not in the compute function) before doing an actual calculation.

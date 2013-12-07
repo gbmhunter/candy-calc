@@ -8,7 +8,7 @@
 //				See the README in the repo root dir for more info.
 
 // Debug flag. Set to true to print debug information, otherwise false.
-var DEBUG = true;
+var DEBUG = false;
 
 // Load jQuery if not already loaded	
 window.jQuery || document.write('<script src="http://code.jquery.com/jquery-latest.min.js"><\/script>');
@@ -72,25 +72,48 @@ var cc = new function()
 	// This function links two unit sets together, so that when sourceUnit is changed,
 	// destinationUnit is changed also.
 	// Note, does not work correctly yet! destination variable does not update select box
-	this.linkUnits = function(sourceCalcVar, destinationCalcVar)
+	this.linkUnits = function(calcVar1, calcVar2)
 	{
-		Log('Linking units...');
-		Log('sourceCalcVar.selUnit = ');
-		Log(sourceCalcVar.selUnit());
-		Log('destinationCalcVar.selUnit = ');
-		Log(destinationCalcVar.selUnit());
-		// Destination selUnit is now a computed variable
-		destinationCalcVar.selUnit = ko.computed(
-			function(){
-				Log('!!!!Changing destination units');
-				Log('sourceCalcVar.selUnit() = ');
-				Log(sourceCalcVar.selUnit());
-				Log('destinationCalcVar.selUnit = ');
-				Log(destinationCalcVar.selUnit());
-			// Make it equal to the source variables selected unit
-				return sourceCalcVar.selUnit();
+		console.log('Linking units...');
+		console.log('calcVar1.selUnit = ');
+		console.log(calcVar1.selUnit());
+		console.log('calcVar2.selUnit = ');
+		console.log(calcVar2.selUnit());
+		
+		// Modified write function
+		calcVar1.dispSelUnit = ko.computed({
+			read : function(){
+				console.log('Reading source var sel unit.');
+
+				// Return as usual
+				return calcVar1.selUnit();
 			},
-			this);
+			write : function(value){
+				// Write to both of them
+				console.log('Writing ' + value + 'to both sel unit.');
+				calcVar1.selUnit(value);
+				calcVar2.selUnit(value);
+			},
+			owner : this
+		});
+		
+		// Modified write function
+		calcVar2.dispSelUnit = ko.computed({
+			read : function(){
+				console.log('Reading destination var sel unit.');
+
+			// Make it equal to the source variables selected unit
+				return calcVar2.selUnit();
+			},
+			write : function(value){
+				// Write to both of them
+				console.log('Writing ' + value + 'to both sel unit.');
+
+				calcVar1.selUnit(value);
+				calcVar2.selUnit(value);
+			},
+			owner : this
+		});
 	}
 
 	// Registers a calculator so that the bindings will be applied when the page is 
@@ -246,14 +269,29 @@ var cc = new function()
 				
 	};
 	
-	this.variable = function(app, eqFn, validatorFn, units, selUnit, roundTo, stateFn)
+	this.variable = function(app, eqFn, validatorFn, units, selUnitNum, roundTo, stateFn)
 	{
 			
-		// Available units for this variable	
+		//========= UNITS =========//
+			
+		// Available units for this variable. This does not need 2 seperate values.
 		this.units = ko.observableArray(units);
 		
 		// The selected unit for this variable
-		this.selUnit = ko.observable(this.units()[selUnit]);
+		this.selUnit = ko.observable(this.units()[selUnitNum]);
+		
+		// The displayed selected unit
+		this.dispSelUnit = ko.computed({
+			read: function()
+			{
+				return this.selUnit();
+			},
+			write: function(value)
+			{
+				this.selUnit(value);
+			},
+			owner: this
+		});
 		
 		// This value is the actual value, stored in the background. dispVal is what the
 		// user sees. This is always in SI without any unit postfix.
