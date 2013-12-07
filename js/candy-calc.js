@@ -19,6 +19,9 @@ document.write('<script type="text/javascript" src="http://cdnjs.cloudflare.com/
 // Load knockout plugin "knockout-deferred-updates"
 document.write('<script type="text/javascript" src="./candy-calc/lib/knockout-deferred-updates/knockout-deferred-updates.js"></script>');
 
+// Load knockout plugin "knockout-postbox"
+document.write('<script type="text/javascript" src="./candy-calc/lib/knockout-postbox/src/knockout-postbox.js"></script>');
+
 // MathJax for Latex rendering
 document.write('<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>');
 
@@ -69,52 +72,15 @@ var cc = new function()
 		this.severity = severity;
 	}
 	
-	// This function links two unit sets together, so that when sourceUnit is changed,
-	// destinationUnit is changed also.
-	// Note, does not work correctly yet! destination variable does not update select box
-	this.linkUnits = function(calcVar1, calcVar2)
-	{
-		console.log('Linking units...');
-		console.log('calcVar1.selUnit = ');
-		console.log(calcVar1.selUnit());
-		console.log('calcVar2.selUnit = ');
-		console.log(calcVar2.selUnit());
-		
-		// Modified write function
-		calcVar1.dispSelUnit = ko.computed({
-			read : function(){
-				console.log('Reading source var sel unit.');
-
-				// Return as usual
-				return calcVar1.selUnit();
-			},
-			write : function(value){
-				// Write to both of them
-				console.log('Writing ' + value + 'to both sel unit.');
-				calcVar1.selUnit(value);
-				calcVar2.selUnit(value);
-			},
-			owner : this
-		});
-		
-		// Modified write function
-		calcVar2.dispSelUnit = ko.computed({
-			read : function(){
-				console.log('Reading destination var sel unit.');
-
-			// Make it equal to the source variables selected unit
-				return calcVar2.selUnit();
-			},
-			write : function(value){
-				// Write to both of them
-				console.log('Writing ' + value + 'to both sel unit.');
-
-				calcVar1.selUnit(value);
-				calcVar2.selUnit(value);
-			},
-			owner : this
-		});
+	// This function is used to link units together. topic is a 
+	// specific keyword.
+	this.linkUnits = function(calcVar, topic)
+	{		
+		// Uses the postbox plugin to register with a topic
+		calcVar.selUnit.syncWith(topic);
 	}
+	
+	//calcVar2.dispSelUnit.syncWith('units');
 
 	// Registers a calculator so that the bindings will be applied when the page is 
 	// loaded. 
@@ -279,19 +245,6 @@ var cc = new function()
 		
 		// The selected unit for this variable
 		this.selUnit = ko.observable(this.units()[selUnitNum]);
-		
-		// The displayed selected unit
-		this.dispSelUnit = ko.computed({
-			read: function()
-			{
-				return this.selUnit();
-			},
-			write: function(value)
-			{
-				this.selUnit(value);
-			},
-			owner: this
-		});
 		
 		// This value is the actual value, stored in the background. dispVal is what the
 		// user sees. This is always in SI without any unit postfix.
