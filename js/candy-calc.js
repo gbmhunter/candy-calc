@@ -17,10 +17,10 @@ window.jQuery || document.write('<script src="http://code.jquery.com/jquery-late
 document.write('<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js"></script>');
 
 // Load knockout plugin "knockout-deferred-updates"
-document.write('<script type="text/javascript" src="candy-calc/lib/knockout-deferred-updates/knockout-deferred-updates.js"></script>');
+document.write('<script type="text/javascript" src="http://cladlab.com/candy-calc/lib/knockout-deferred-updates/knockout-deferred-updates.js"></script>');
 
 // Load knockout plugin "knockout-postbox"
-document.write('<script type="text/javascript" src="candy-calc/lib/knockout-postbox/src/knockout-postbox.js"></script>');
+document.write('<script type="text/javascript" src="http://cladlab.com/candy-calc/lib/knockout-postbox/src/knockout-postbox.js"></script>');
 
 // MathJax for Latex rendering
 document.write('<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>');
