@@ -5,7 +5,7 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2013/11/11
 - Last Modified: 2013/12/08
-- Version: v6.1.0.0
+- Version: v6.1.0.1
 - Company: CladLabs
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -41,8 +41,22 @@ Name       Description
 IS_NUMERIC Returns true is number is a numeral, otherwise false. Follows jQuery.isNumeric().
 ========== ====================
 
-External Dependencies
-=====================
+Dependencies
+============
+
+Internal
+--------
+
+========================= =============================== ===================================================================
+Dependency                Path                            Usage
+========================= =============================== ===================================================================
+jStorage                  ./lib/jStorage                  To save calculator states (e.g. variable values, selected units) to the users computer.
+knockout-deferred-updates ./lib/knockout-deferred-updates To access the dependency tree for checking dependencies are valid before calculation.
+knockout-postbox          ./lib/knockout-postbox          To use subscribe/publish features so you can synchronize variable units.
+========================= =============================== ===================================================================
+
+External
+--------
 
 ============== =============== ===================================================================
 Dependency     Delivery        Usage
@@ -77,6 +91,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v6.1.0.1  2013/12/08 Following changes apply to the README: Added internal dependency section, added jStorage, knockout-postbox and knockout-deferred-updates to list of internal dependencies.
 v6.1.0.0  2013/12/08 Implemented the postbox API for syncing units together. The `cc.linkUnits()` API has changed so that you provide a unit and a keyword together. This allows you link as many units as you want together.
 v6.0.0.0  2013/12/08 Added 'knockout-postbox' library as git submodule into './lib/knockout-postbox'. This will be used to sync 'ko.observables' and 'ko.computed()' values with each other.
 v5.1.3.0  2013/12/07 Fixed infinite recursion issue with `linkUnits()` function, required unit array for both variables to be the same object.
