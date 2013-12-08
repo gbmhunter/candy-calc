@@ -28,9 +28,9 @@ document.write('<script type="text/javascript" src="http://cdn.mathjax.org/mathj
 // Load qTip
 
 // CSS file
-document.write('<link type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/qtip2/2.1.0/jquery.qtip.min.css" />');
+document.write('<link type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/qtip2/2.1.1/jquery.qtip.min.css" />');
 // JS. Include either the minifed or production version, not both
-document.write('<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/qtip2/2.1.0/jquery.qtip.min.js"></script>');
+document.write('<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/qtip2/2.1.1/jquery.qtip.min.js"></script>');
 
 
 // Candy-calc "namespace"
@@ -455,7 +455,7 @@ jQuery(document).ready(
 									title: 'Warning!'
 								},
 								style: {
-									classes: 'qtip-orange qtip-rounded qtip-shadow'
+									 classes: 'qTipWarning qtip-rounded qtip-shadow',								   
 								},
 								show: {
 									effect: function(offset) {
@@ -481,7 +481,7 @@ jQuery(document).ready(
 									title: 'Error!'
 								},
 								style: {
-									classes: 'qtip-red qtip-rounded qtip-shadow'
+									classes: 'qTipError qtip-rounded qtip-shadow'
 								},
 								show: {
 									effect: function(offset) {
@@ -509,6 +509,22 @@ jQuery(document).ready(
 					
 			 }
 		};
+		
+		/*
+		jQuery.fn.qtip.styles.warningStyle = { // Last part is the name of the style
+		   width: 200,
+		   background: '#A2D959',
+		   color: 'orange',
+		   textAlign: 'center',
+		   border: {
+		      width: 7,
+		      radius: 5,
+		      color: '#A2D959'
+		   },
+		   tip: 'bottomLeft',
+		   name: 'dark' // Inherit the rest of the attributes from the preset dark style
+		}
+		*/
 	}
 );
 

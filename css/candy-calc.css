@@ -77,3 +77,29 @@ invalid values */
 	background-color: #99FF99;
 	width: 100px;
 }
+
+/*==================================*/
+/*=========== qTip Styles ==========*/
+/*==================================*/
+
+/* Warning */
+.qTipWarning{
+    border-color: #FF6600;
+    background-color: #FF9C59;
+    color: #000000;
+}
+
+.qTipWarning .qtip-titlebar{
+	background-color: #FF6600;
+}	
+
+/* Error */
+.qTipError{
+    border-color: #ff0000;
+    background-color: #FF9999;
+    color: #000000;
+}
+
+.qTipError .qtip-titlebar{
+	background-color: #FF0000;
+}	
