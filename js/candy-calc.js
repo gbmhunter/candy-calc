@@ -235,26 +235,27 @@ var cc = new function()
 				
 	};
 	
-	this.variable = function(app, eqFn, validatorFn, units, selUnitNum, roundTo, stateFn)
+	// This can act as both an input and an output
+	this.variable = function(obj)
 	{
 			
 		//========= UNITS =========//
 			
 		// Available units for this variable. This does not need 2 seperate values.
-		this.units = ko.observableArray(units);
+		this.units = ko.observableArray(obj.units);
 		
 		// The selected unit for this variable
-		this.selUnit = ko.observable(this.units()[selUnitNum]);
+		this.selUnit = ko.observable(this.units()[obj.selUnitNum]);
 		
 		// This value is the actual value, stored in the background. dispVal is what the
 		// user sees. This is always in SI without any unit postfix.
 		// (e.g. V, Hz, never mV, kHz or MHz)
 		this.val = ko.observable();
 		
-		this.app = app;		
+		this.app = obj.app;		
 				
 		// This determines whether the variable is an input or an output
-		this.state = ko.computed(stateFn, app);
+		this.state = ko.computed(obj.stateFn, obj.app);
 		
 		// This is the value that the user sees. It modifies the actual value, variable.val, 
 		// which is kept in the background
@@ -267,7 +268,7 @@ var cc = new function()
 					Log('Calculating and writing to underlying variable.');
 					// Calculate the value based on the provided
 					// equation
-					var value = eqFn.call(app);
+					var value = obj.eqFn.call(obj.app);
 					
 					// Storing
 					Log('Storing "' + value + '" in this.val.');
@@ -335,26 +336,10 @@ var cc = new function()
 		});
 		
 		// Number of decimal places to round value to
-		if(roundTo != null)
-			this.roundTo = roundTo;
+		if(obj.roundTo != null)
+			this.roundTo = obj.roundTo;
 		else
-			this.roundTo = 1;
-		
-		/*
-		// This is the displayed value
-		this.dispVal = ko.computed(
-			function(){
-				console.log('Computing displayed value.');
-				console.log(this);
-				var unroundedVal = this.val()/this.selUnit().multiplier;
-				// Round the value
-				var roundedVal = Math.round(unroundedVal*Math.pow(10, this.roundTo))/Math.pow(10, this.roundTo);
-				//var roundedVal = this.val();
-				console.log('Displayed value = ' + roundedVal);
-				return roundedVal;
-			},
-			this
-		);	*/			
+			this.roundTo = 1;		
 		
 		this.lowerBound = 0; //ko.observable(lowerBound);
 		this.upperBound = 0; //ko.observable(upperBound);

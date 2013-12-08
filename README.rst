@@ -5,7 +5,7 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2013/11/11
 - Last Modified: 2013/12/08
-- Version: v6.1.3.0
+- Version: v6.2.0.0
 - Company: CladLabs
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -91,6 +91,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v6.2.0.0  2013/12/08 'cc.variable()' now accepts and single object literal, makes candy-calc easier to use, closes 34#.
 v6.1.3.0  2013/12/08 Made ./lib/ locations fixed to cladlab.com.
 v6.1.2.0  2013/12/08 Attempt to fix Javascript src errors to ./lib/ locations when running from website.
 v6.1.1.0  2013/12/08 qTip colours now match input boxes better, and warning text easier to read, closes #25.
