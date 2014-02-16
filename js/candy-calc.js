@@ -430,6 +430,7 @@ jQuery(document).ready(
 						// Since validator returned false, add notValid class for CSS to render red
 						if(valueAccessor().validatorA()[valueAccessor().trigIndex()].severity == cc.severityEnum.warning)
 						{
+							jQuery(element).removeClass("ok");
 							jQuery(element).removeClass('error'); 
 							jQuery(element).addClass('warning'); 	
 							
@@ -457,6 +458,7 @@ jQuery(document).ready(
 						else if(valueAccessor().validatorA()[valueAccessor().trigIndex()].severity == cc.severityEnum.error)
 						{
 							jQuery(element).removeClass("warning");
+							jQuery(element).removeClass("ok");
 							jQuery(element).addClass('error'); 
 							
 							jQuery(element).qtip({
@@ -487,6 +489,7 @@ jQuery(document).ready(
 						// Remove notValid class to make green again
 						jQuery(element).removeClass("warning");
 						jQuery(element).removeClass("error");
+						jQuery(element).addClass("ok");
 						// Disable tooltip which showed any errors
 						//jQuery(element).qtip('disable', true);
 						jQuery(element).qtip('destroy',true)

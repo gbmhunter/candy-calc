@@ -1,11 +1,12 @@
 /*
-// @file 		candy-calc.css
-// @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlabs.com)
-// @edited 		n/a
-// @date 		2013/11/01
-// @brief 		CSS styling for candy-calc.
+// @file 			candy-calc.css
+// @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlabs.com)
+// @edited 			n/a		
+// @created			2013/11/01
+// @last-modified 2014/02/17
+// @brief 			CSS styling for candy-calc.
 // @details
-//				See the README in the repo root dir for more info.
+//						See the README in the repo root dir for more info.
 */
 
 .candy-calc{
@@ -35,36 +36,41 @@ invalid values */
 	padding: 2px;
 	background-color: #99FF99;
 	width: 100px;
+	
+}
+
+.input.ok {
+	border-color: #00ff00;
 }
 
 /* Make border glow green for valid selected input variables */
 .input:focus { 
 	outline: none;
-	border-color: #00ff00;
+	/*border-color: #00ff00;*/
 	box-shadow: 0 0 10px #9ecaed;
 }
 
 /* Make background colour orange for variables with warning class */
 .input.warning, .output.warning {
 	background-color: #FF9C59;
+	border-color: #ff6600;
 }
 
 /* Make background colour red for variables with error class */
 .input.error, .output.error {
 	background-color: #FF9999;
+	border-color: #ff0000;
 }
 
 /* Make border glow red */
 .input.warning:focus { 
 	outline: none;
-	border-color: #ff6600;
 	box-shadow: 0 0 10px #9ecaed;
 }
 
 /* Make border glow red */
 .input.error:focus { 
 	outline: none;
-	border-color: #ff0000;
 	box-shadow: 0 0 10px #9ecaed;
 }
 
