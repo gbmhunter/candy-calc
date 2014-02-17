@@ -9,7 +9,6 @@
 	  <div id="qunit"></div>
 	  <div id="qunit-fixture"></div>
 	  <script src="http://code.jquery.com/qunit/qunit-1.14.0.js"></script>
-	  <script src="QUnitTests.js"></script>
 	  
 		<script type="text/javascript">
 			window.jQuery || document.write('<script src="http://code.jquery.com/jquery-latest.min.js"><\/script>')
@@ -31,7 +30,7 @@
 				<tr>
 					<td class="symbol">\(V\)</td>
 					<td>
-						<input class="input" data-bind="calcVar: voltage, valueUpdate: 'afterkeydown'" ></input>
+						<input id="voltage" class="input" data-bind="calcVar: voltage, valueUpdate: 'afterkeydown'" ></input>
 					</td>		
 					<td>
 						<select data-bind="options: voltage.units, optionsText: 'name', value: voltage.selUnit"></select>
@@ -43,7 +42,7 @@
 				<tr>
 					<td class="symbol">\(I\)</td>
 					<td>
-						<input class="input" data-bind="calcVar: current, valueUpdate: 'afterkeydown'" ></input>
+						<input id="current" class="input" data-bind="calcVar: current, valueUpdate: 'afterkeydown'" ></input>
 					</td>		
 					<td>
 						<select data-bind="options: current.units, optionsText: 'name', value: current.selUnit"></select>
@@ -55,7 +54,7 @@
 				<tr>
 					<td class="symbol">\(R\)</td>
 					<td>
-						<input class="input" data-bind="calcVar: resistance, valueUpdate: 'afterkeydown'" ></input>
+						<input id="resistance" class="input" data-bind="calcVar: resistance, valueUpdate: 'afterkeydown'" ></input>
 					</td>	
 					<td>
 						<select data-bind="options: resistance.units, optionsText: 'name', value: resistance.selUnit"></select>
@@ -78,7 +77,7 @@
 		<script type="text/javascript" src="basic-addition-test.js"></script>
 
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	  
+	   <script src="QUnitTests.js"></script>
 	  
 	</body>
 </html>
