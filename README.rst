@@ -5,7 +5,7 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2013/11/11
 - Last Modified: 2014/02/17
-- Version: v7.0.6.0
+- Version: v7.0.7.0
 - Company: CladLabs
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -91,6 +91,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v7.0.7.0  2014/02/17 Removed unneeded info and invalid php in test.html.
 v7.0.6.0  2014/02/17 Added 'http' qualifier before qTip javascript and css inclusions, so it works when candy-calc is run locally without a server. QTest loads up 'basic-addition-test', which hasn't been fully implemented yet.
 v7.0.5.0  2014/02/17 Deleted unused test files. One basic unit test working (but not related to candy-calc), closes #38.
 v7.0.4.0  2014/02/17 Renamed test.php to test.html to see if it will fix failing unit tests.
