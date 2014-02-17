@@ -7,4 +7,4 @@
 #  - npm install connect
 #  - sudo node test/js/server.js ../../ 80 &
 #  - sleep 5
-script: phantomjs test/tests.js
+script: phantomjs test/run-qunit.js "test/test.php"
