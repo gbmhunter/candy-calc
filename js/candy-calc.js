@@ -28,9 +28,9 @@ document.write('<script type="text/javascript" src="http://cdn.mathjax.org/mathj
 // Load qTip
 
 // CSS file
-document.write('<link type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/qtip2/2.1.1/jquery.qtip.min.css" />');
+document.write('<link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.1.1/jquery.qtip.min.css" />');
 // JS. Include either the minifed or production version, not both
-document.write('<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/qtip2/2.1.1/jquery.qtip.min.js"></script>');
+document.write('<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.1.1/jquery.qtip.min.js"></script>');
 
 
 // Candy-calc "namespace"
