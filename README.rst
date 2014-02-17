@@ -5,7 +5,7 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2013/11/11
 - Last Modified: 2014/02/17
-- Version: v7.0.0.0
+- Version: v7.0.1.0
 - Company: CladLabs
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -91,6 +91,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v7.0.1.0  2014/02/17 PhantomJs should now print 'Hello World' (for testing).
 v7.0.0.0  2014/02/17 Added beginnings of unit tests. Commit to test if TravisCI works properly with files in ./test/ folder.
 v6.2.1.0  2014/02/17 Input boxes now have fixed border colours to help differentiate them from outputs, closes #35. ok class is assigned to input/output boxes that have valid data, closes #37.
 v6.2.0.0  2013/12/08 'cc.variable()' now accepts and single object literal, makes candy-calc easier to use, closes 34#.
