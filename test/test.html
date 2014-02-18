@@ -36,7 +36,7 @@
 						<select data-bind="options: voltage.units, optionsText: 'name', value: voltage.selUnit"></select>
 					</td>
 					<td>
-						<input data-bind="checked: calcWhat" type="radio" name="range" value="voltage"></input>
+						<input id="voltageCalcWhat" data-bind="checked: calcWhat" type="radio" name="range" value="voltage"></input>
 					</td>
 				</tr>				
 				<tr>
@@ -60,7 +60,7 @@
 						<select data-bind="options: resistance.units, optionsText: 'name', value: resistance.selUnit"></select>
 					</td>
 					<td>
-						<input data-bind="checked: calcWhat" type="radio" name="range" value="resistance"></input>
+						<input id="resistanceCalcWhat" data-bind="checked: calcWhat" type="radio" name="range" value="resistance"></input>
 					</td>
 				</tr>
 				<tr>

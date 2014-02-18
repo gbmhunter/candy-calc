@@ -98,6 +98,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v7.3.0.0  2014/02/18 Added unit test for checking that the 'calcWhat' radio buttons work correctly, closes #41.
 v7.2.0.0  2014/02/18 Added TravisCI 'Build Passing' image to README, closes #39. Added 'candy-calc' to README title, closes #40.
 v7.1.0.0  2014/02/17 'Basic Multiplication Test' is now implemented correctly.
 v7.0.7.0  2014/02/17 Removed unneeded info and invalid php in test.html.
