@@ -1,11 +1,18 @@
-=======================================================================================
+==========
+candy-calc
+==========
+
+-----------------------------------------------------------------------------------
 A framework for creating powerful and beautiful client-side Javascript calculators.
-=======================================================================================
+-----------------------------------------------------------------------------------
+
+.. image:: https://api.travis-ci.org/gbmhunter/candy-calc.png?branch=master   
+	:target: https://travis-ci.org/gbmhunter/candy-calc
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2013/11/11
-- Last Modified: 2014/02/17
-- Version: v7.1.0.0
+- Last Modified: 2014/02/18
+- Version: v7.2.0.0
 - Company: CladLabs
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -91,6 +98,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v7.2.0.0  2014/02/18 Added TravisCI 'Build Passing' image to README, closes #39. Added 'candy-calc' to README title, closes #40.
 v7.1.0.0  2014/02/17 'Basic Multiplication Test' is now implemented correctly.
 v7.0.7.0  2014/02/17 Removed unneeded info and invalid php in test.html.
 v7.0.6.0  2014/02/17 Added 'http' qualifier before qTip javascript and css inclusions, so it works when candy-calc is run locally without a server. QTest loads up 'basic-addition-test', which hasn't been fully implemented yet.
