@@ -12,7 +12,7 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2013/11/11
 - Last Modified: 2014/02/18
-- Version: v7.2.0.0
+- Version: v7.4.0.0
 - Company: CladLabs
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -98,6 +98,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v7.4.0.0  2014/02/18 Added QUnit CSS file, for better styling when unit tests are run manually, closes #42.
 v7.3.0.0  2014/02/18 Added unit test for checking that the 'calcWhat' radio buttons work correctly, closes #41.
 v7.2.0.0  2014/02/18 Added TravisCI 'Build Passing' image to README, closes #39. Added 'candy-calc' to README title, closes #40.
 v7.1.0.0  2014/02/17 'Basic Multiplication Test' is now implemented correctly.
