@@ -9,7 +9,7 @@
 //		See the README in the repo root dir for more info.
 
 // Debug flag. Set to true to print debug information, otherwise false.
-var DEBUG = true;
+var DEBUG = false;
 
 // Load jQuery if not already loaded	
 window.jQuery || document.write('<script src="http://code.jquery.com/jquery-latest.min.js"><\/script>');
@@ -45,26 +45,26 @@ var cc = new function()
 		'IS_NEGATIVE_OR_ZERO' 	: 3
 	}
 	
-	// Enumeration of severity levels for validators. Severity level
-	// determines background colour of variable.
+	//! @brief		Enumeration of severity levels for validators. Severity level
+	//! 			determines background colour of variable.
 	this.severityEnum = {
 		'warning' 				: 1,
-		'error' 					: 2
+		'error' 				: 2
 	}
 	
-	// Used to determine whether variable is an input or an output
+	//! @brief		Used to determine whether variable is an input or an output
 	this.stateEnum = {
 		'input'					: 1,
 		'output'					: 2
 	}
 	
-	// Calculator unit object
+	//! @brief		Calculator unit object
 	this.unit = function(name, multiplier) {
 			  this.name = name;
 			  this.multiplier = multiplier;
 	};
 	
-	// "Class" for validator object, which holds both a message and validator function
+	//! @brief		"Class" for validator object, which holds both a message and validator function.
 	this.validator = function(app, msg, fn, severity)
 	{
 		this.app = app;
@@ -252,18 +252,19 @@ var cc = new function()
 	//! @brief		This can act as both an input and an output.
 	//! @param		obj Contains all the setup data.
 	//!					obj.name 	The name of the variable, used for debugging purposes only.
+	//!					obj.units 	The available units for the variable.
 	this.variable = function(obj)
 	{
 			
-		// Save the name for debugging purposes
+		//! @brief		Save the name for debugging purposes
 		this.name = obj.name;
 
 		//========= UNITS =========//
 			
-		// Available units for this variable. This does not need 2 seperate values.
+		//! @brief		Available units for this variable. This does not need 2 seperate values.
 		this.units = ko.observableArray(obj.units);
 		
-		// The selected unit for this variable
+		//! @brief		The selected unit for this variable
 		this.selUnit = ko.observable(this.units()[obj.selUnitNum]);
 		
 		// This value is the actual value, stored in the background. dispVal is what the
@@ -399,7 +400,7 @@ var cc = new function()
 		this.isValid = ko.computed(
 			function()
 			{
-				Log('variable.isValid() called.');
+				Log('variable.isValid() called for ' + this.name + '.');
 				Log('Computing isValid for output.');
 				Log('Validator array length = ' + this.validatorA().length);
 				for (var i = 0; i < this.validatorA().length; i++) {
@@ -420,11 +421,40 @@ var cc = new function()
 			this
 		);
 				
-		// Methods
-		this.AddCustomValidator = function(app, msg, fn)
+		//========================= METHODS =========================
+
+		//! @brief		Call this to add a validator for the variable.
+		//! @details
+		//! @param	validatorEnum	The type of validator you are adding.
+		//! @param	severity 		The severity of the validator.
+		this.AddValidator = function(validatorEnum, severity)
+		{
+			switch(validatorEnum)
+			{
+				case cc.validatorEnum.IS_NUMBER:
+					Log('Adding IS_NUMBER validator.');
+					this.validatorA.push(
+						new cc.validator(
+							this,
+							'Value must be a number!',
+							function(variable)
+							{
+								Log('Testing ' + variable.val());
+								return jQuery.isNumeric(variable.val());
+							}, 
+							severity)
+					);
+					break;
+				//case default:
+					//console.log('Enum not recognised.');
+			}
+		}
+
+		//! @brief		Adds a custom validator to the calculator variable.
+		this.AddCustomValidator = function(app, msg, fn, severity)
 		{
 			// Create new validator object and add to the end of the array
-			this.validatorA.push(new validator(app, msg, fn));
+			this.validatorA.push(new cc.validator(app, msg, fn, severity));
 		}
 				
 	};
@@ -465,7 +495,9 @@ jQuery(document).ready(
 					allBindings,
 					viewModel,
 					bindingContext);
-				  																				
+				  						
+				  	Log('ko.bindingHandlers.calcVar.update() called for ' + valueAccessor().name + '.');
+
 					if(valueAccessor().isValid() == false) // Validator returned false, value did not pass this test
 					{
 						Log('Activating tooltip.');
@@ -477,6 +509,7 @@ jQuery(document).ready(
 						// Since validator returned false, add notValid class for CSS to render red
 						if(valueAccessor().validatorA()[valueAccessor().trigIndex()].severity == cc.severityEnum.warning)
 						{
+							Log('Severity == cc.severityEnum.warning.');
 							jQuery(element).removeClass("ok");
 							jQuery(element).removeClass('error'); 
 							jQuery(element).addClass('warning'); 	
@@ -501,9 +534,10 @@ jQuery(document).ready(
 									}
 								}
 							});
-						}							
+						} // if(valueAccessor().validatorA()[valueAccessor().trigIndex()].severity == cc.severityEnum.warning)						
 						else if(valueAccessor().validatorA()[valueAccessor().trigIndex()].severity == cc.severityEnum.error)
 						{
+							Log('Severity == cc.severityEnum.error.');
 							jQuery(element).removeClass("warning");
 							jQuery(element).removeClass("ok");
 							jQuery(element).addClass('error'); 
@@ -527,12 +561,16 @@ jQuery(document).ready(
 										jQuery(this).slideDown(100); // "this" refers to the tooltip
 									}
 								}
-							});
+							}); // jQuery(element).qtip({
+						} // else if(valueAccessor().validatorA()[valueAccessor().trigIndex()].severity == cc.severityEnum.error)
+						else
+						{
+							Log('ERROR: Severity not valid!');
 						}
-					}
+					} // if(valueAccessor().isValid() == false) 
 					else // Validator returned true, value passed this test
 					{
-						Log('Removing notValid class and disabling tooltip.');
+						Log('Removing notValid class and disabling tooltip1.');
 						// Remove notValid class to make green again
 						jQuery(element).removeClass("warning");
 						jQuery(element).removeClass("error");
@@ -540,7 +578,7 @@ jQuery(document).ready(
 						// Disable tooltip which showed any errors
 						//jQuery(element).qtip('disable', true);
 						jQuery(element).qtip('destroy',true)
-					}
+					} // else
 					
 			 }
 		};
