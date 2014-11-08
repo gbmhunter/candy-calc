@@ -1,11 +1,12 @@
 //
-// @file 		candy-calc.js
-// @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlabs.com)
-// @edited 		n/a
-// @date 		2013/11/01
-// @brief 		Binding/calculating code for candy-calc.
+// @file 			candy-calc.js
+// @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
+// @edited 			n/a
+// @date 			2013-11-01
+// @last-modified	2014-08-11
+// @brief 			Binding/calculating code for candy-calc.
 // @details
-//				See the README in the repo root dir for more info.
+//		See the README in the repo root dir for more info.
 
 // Debug flag. Set to true to print debug information, otherwise false.
 var DEBUG = false;
@@ -96,24 +97,31 @@ var cc = new function()
 		);
 	}
 	
-	// "Class" for a calc variable
+	//! @brief		"Class" for a calcultor input variable.
 	this.input = function(app, validatorFn, units, selUnit) {
+
+		//! @brief		The displayed value for the variable
 		this.dispVal = ko.observable();
+
+		//! @biref		Array of the available units for the variable.
 		this.units = ko.observableArray(units);
+
+		//! @brief		The currently selected unit for the array of available units.
 		this.selUnit = ko.observable(this.units()[selUnit]);
 		
-		// Scaled value, taking into account the units
+		//! @brief		Hidded, actual and scaled value, taking into account the units.
 		this.val = ko.computed( function(){
 			return this.dispVal()*this.selUnit().multiplier;
-		},
-		this);
+			},
+			this);
 
-		// Holds all validator functions
+		//! @brief		Holds all validator functions.
 		this.validatorA = ko.observableArray();
 		
 		this.trigIndex = ko.observable();
 		
-		// Default is to just return true.
+		//! @brief		Runs through all the validator functions
+		//! @details	Default is to just return true.
 		this.isValid = ko.computed(
 			function()
 			{
@@ -129,15 +137,20 @@ var cc = new function()
 						return false;
 					}
 				}
-				// Only gets here if no validator function returned false
+				// Only gets here if no validator function returned false 
+				// (or there were no validator functions)
 				Log('Returning true.');
 				return true;
 			},
 			this
 		);
 		
-		// Methods
-		
+		//========================= Methods =========================//
+	
+		//! @brief		Call this to add a validator for the variable.
+		//! @details
+		//! @param	validatorEnum	The type of validator you are adding.
+		//! @param	severity 		The severity of the validator.
 		this.AddValidator = function(validatorEnum, severity)
 		{
 			switch(validatorEnum)
@@ -171,6 +184,7 @@ var cc = new function()
 		
    }; // this.input
 	
+	//! @brief		"Class" for a calcultor output variable.
 	this.output = function(app, compFn, validatorFn, units, selUnit, roundTo) {
 			
 		this.units = ko.observableArray(units);
@@ -235,7 +249,7 @@ var cc = new function()
 				
 	};
 	
-	// This can act as both an input and an output
+	//! @brief		This can act as both an input and an output
 	this.variable = function(obj)
 	{
 			
@@ -516,7 +530,8 @@ jQuery(document).ready(
 	}
 );
 
-// Logs error messages
+//! @brief		Logs error messages.
+//! @details	Error messages can be turned on and off by setting DEBUG.
 function Log(msg)
 {
 	// Only print if DEBUG variable has been set to true
