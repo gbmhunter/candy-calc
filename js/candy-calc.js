@@ -3,13 +3,13 @@
 // @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 // @edited 			n/a
 // @date 			2013-11-01
-// @last-modified	2014-08-11
+// @last-modified	2014-11-09
 // @brief 			Binding/calculating code for candy-calc.
 // @details
 //		See the README in the repo root dir for more info.
 
 // Debug flag. Set to true to print debug information, otherwise false.
-var DEBUG = false;
+var DEBUG = true;
 
 // Load jQuery if not already loaded	
 window.jQuery || document.write('<script src="http://code.jquery.com/jquery-latest.min.js"><\/script>');
@@ -40,7 +40,7 @@ var cc = new function()
 {
 	// Enumeration of pre-defined validators
 	this.validatorEnum = {
-		'IS_NUMBER' 				: 1,
+		'IS_NUMBER' 			: 1,
 		'IS_POSITIVE_OR_ZERO' 	: 2,
 		'IS_NEGATIVE_OR_ZERO' 	: 3
 	}
@@ -249,10 +249,15 @@ var cc = new function()
 				
 	};
 	
-	//! @brief		This can act as both an input and an output
+	//! @brief		This can act as both an input and an output.
+	//! @param		obj Contains all the setup data.
+	//!					obj.name 	The name of the variable, used for debugging purposes only.
 	this.variable = function(obj)
 	{
 			
+		// Save the name for debugging purposes
+		this.name = obj.name;
+
 		//========= UNITS =========//
 			
 		// Available units for this variable. This does not need 2 seperate values.
@@ -275,6 +280,9 @@ var cc = new function()
 		// which is kept in the background
 		this.dispVal = ko.computed({
 			read: function () {
+
+				Log('variable.dispVal.read() called for ' + this.name + '.');
+
 				if(this.state() == cc.stateEnum.output)
 				{					
 					
@@ -328,26 +336,50 @@ var cc = new function()
 					Log('Reading from underlying variable ("' + this.val() + '").');
 					
 					var value = this.val();
-					
-					// Scale it
-					value = value/this.selUnit().multiplier
-					
-					// Now round it
-					value = Math.round(value*Math.pow(10, this.roundTo))/Math.pow(10, this.roundTo);
-					
-					if(isNaN(value))
-						return '';
+
+					// We need to check so see whether it is a valid number
+					if(!isNaN(value) && !(value == ''))
+					{
+						Log('Value is a valid number.');
+									// Scale it
+						value = value/this.selUnit().multiplier
+						
+						// Now round it
+						value = Math.round(value*Math.pow(10, this.roundTo))/Math.pow(10, this.roundTo);
+						
+						if(isNaN(value))
+							return '';
+						else
+							return value;
+					}
 					else
+					{
+						// Value is NaN, so just write it directly
+						Log('value is NaN, so returning value directly.');					
 						return value;
+					}
+					
 				}
 			},
 			write: function (value) {
-				Log('Writing ' + value*this.selUnit().multiplier + ' to underlying variable');
-				//console.log(this.val());
-				this.val(value*this.selUnit().multiplier);
+				Log('variable.dispVal.write() called for ' + this.name + '.');
+				Log('value = ' + value);
+
+				// We need to check so see whether it is a valid number or empty!
+				if(!isNaN(value) && !(value == ''))
+				{
+					Log('Writing ' + value*this.selUnit().multiplier + ' to underlying variable');
+					this.val(value*this.selUnit().multiplier);
+				}
+				else
+				{
+					// Value is NaN, so just write it directly
+					Log('value is NaN or empty, so writing value directly to underlying variable.');					
+					this.val(value);
+				}
 			},
 			owner: this
-		});
+		}); // this.dispVal = ko.computed({
 		
 		// Number of decimal places to round value to
 		if(obj.roundTo != null)
@@ -367,6 +399,7 @@ var cc = new function()
 		this.isValid = ko.computed(
 			function()
 			{
+				Log('variable.isValid() called.');
 				Log('Computing isValid for output.');
 				Log('Validator array length = ' + this.validatorA().length);
 				for (var i = 0; i < this.validatorA().length; i++) {

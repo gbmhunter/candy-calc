@@ -93,6 +93,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v7.4.1.0  2014-11-09 Added name parameter to the cc.variable object for better debugging, closes #44. Added more debug output.
 v7.4.0.1  2014-11-08 Changed all references of cladlab.com to mbedded.ninja, closes #43. Added more comments to various code. Changed all dates to ISO format.
 v7.4.0.0  2014-02-18 Added QUnit CSS file, for better styling when unit tests are run manually, closes #42.
 v7.3.0.0  2014-02-18 Added unit test for checking that the 'calcWhat' radio buttons work correctly, closes #41.
