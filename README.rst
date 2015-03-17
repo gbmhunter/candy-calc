@@ -11,8 +11,8 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2013-11-11
-- Last Modified: 2014-11-09
-- Version: v7.4.2.0
+- Last Modified: 2015.03.18
+- Version: v7.4.3.1
 - Company: CladLabs
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -93,6 +93,8 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v7.4.3.1  2015-03-18 Updated README.
+v7.4.3.0  2015-03-18 Fixed bug where candy-calc.js refers to files on now-extinct cladlab.com, closes #49.
 v7.4.2.0  2014-11-09 Added validator support for cc.variable, closes #45.
 v7.4.1.0  2014-11-09 Added name parameter to the cc.variable object for better debugging, closes #44. Added more debug output. Fixed bug where input dissappears from calculator if non-number is entered, closes #36.
 v7.4.0.1  2014-11-08 Changed all references of cladlab.com to mbedded.ninja, closes #43. Added more comments to various code. Changed all dates to ISO format.
