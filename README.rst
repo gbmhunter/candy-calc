@@ -11,8 +11,8 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2013-11-11
-- Last Modified: 2015.03.18
-- Version: v7.4.3.1
+- Last Modified: 2015-03-19
+- Version: v7.5.0.0
 - Company: CladLabs
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -51,30 +51,24 @@ IS_NUMERIC Returns true is number is a numeral, otherwise false. Follows jQuery.
 Dependencies
 ============
 
-Internal
---------
+All dependencies with a delivery starting with "/lib/..." must be downloaded and placed into a "public_html/lib/" folder on the server.
 
-========================= =============================== ===================================================================
-Dependency                Path                            Usage
-========================= =============================== ===================================================================
-jStorage                  ./lib/jStorage                  To save calculator states (e.g. variable values, selected units) to the users computer.
-knockout-deferred-updates ./lib/knockout-deferred-updates To access the dependency tree for checking dependencies are valid before calculation.
-knockout-postbox          ./lib/knockout-postbox          To use subscribe/publish features so you can synchronize variable units.
-========================= =============================== ===================================================================
+============================ ================================ ===================================================================
+Dependency                   Delivery                         Usage
+============================ ================================ ===================================================================
+`jStorage`_                  /lib/jStorage                    To save calculator states (e.g. variable values, selected units) to the users computer.
+`knockout.js`_               CDN                              Used for it's MVVM framework and binding capabilities.
+`knockout-deferred-updates`_ /lib/knockout-deferred-updates   To access the dependency tree for checking dependencies are valid before calculation.
+`knockout-postbox`_          /lib/knockout-postbox            To use subscribe/publish features so you can synchronize variable units.
+`MathJax`_                   MathJax CDN                      Latex rendering of equations.
+`qTip`_                      CDN                              Tooltip library for information on input/output warnings/errors. 
+============================ ================================ ===================================================================
 
-External
---------
-
-============== =============== ===================================================================
-Dependency     Delivery        Usage
-============== =============== ===================================================================
-MathJax_       MathJax CDN     Latex rendering of equations.
-`knockout.js`_ CDN             Used for it's MVVM framework and binding capabilities.
-qTip_          CDN             Tooltip library for information on input/output warnings/errors. 
-============== =============== ===================================================================
-
-.. _MathJax: http://www.mathjax.org/
+.. _jStorage: http://www.jstorage.info/
 .. _knockout.js: http://knockoutjs.com/
+.. _knockout-deferred-updates: http://mbest.github.io/knockout-deferred-updates/
+.. _knockout-postbox: https://github.com/rniemeyer/knockout-postbox
+.. _MathJax: http://www.mathjax.org/
 .. _qTip: http://craigsworks.com/projects/qtip/
 
 Issues
@@ -93,6 +87,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v7.5.0.0  2015-03-19 Removed internal dependencies (lib folder) from candy-calc, closes #50. Updated README accordingly.
 v7.4.3.1  2015-03-18 Updated README.
 v7.4.3.0  2015-03-18 Fixed bug where candy-calc.js refers to files on now-extinct cladlab.com, closes #49.
 v7.4.2.0  2014-11-09 Added validator support for cc.variable, closes #45.
