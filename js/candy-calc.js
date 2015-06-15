@@ -3,7 +3,7 @@
 // @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 // @edited 			n/a
 // @date 			2013-11-01
-// @last-modified	2015-03-18
+// @last-modified	2015-06-15
 // @brief 			Binding/calculating code for candy-calc.
 // @details
 //		See the README in the repo root dir for more info.
@@ -73,18 +73,20 @@ var cc = new function()
 		this.severity = severity;
 	}
 	
-	// This function is used to link units together. topic is a 
-	// specific keyword.
+	// @brief	This function is used to link units together.
+	//! @param	calcVar 	The variable you wish to link.
+	//! @param	topic 		A keyword which is the same across multiple units you wish to link together.
 	this.linkUnits = function(calcVar, topic)
 	{		
 		// Uses the postbox plugin to register with a topic
 		calcVar.selUnit.syncWith(topic);
 	}
 	
-	//calcVar2.dispSelUnit.syncWith('units');
-
-	// Registers a calculator so that the bindings will be applied when the page is 
-	// loaded. 
+	//! @brief	Registers a calculator so that the bindings will be applied when the page is 
+	// 			loaded.
+	//! @param 	viewModel	The 'class' which contains all of the view model
+	//! @param	htmlId		The HTML ID (string) which contains all of the view model
+	//! @example	cc.registerCalc(smpsBuckConverter, 'smpsBuckConverter');
 	this.registerCalc = function(viewModel, htmlId)
 	{
 		// Start-up function
@@ -248,11 +250,56 @@ var cc = new function()
 		}
 				
 	};
+
+	//! @brief		Converts a number into a string with engineering notation (i.e. using the suffixes u, m, k, M e.t.c).
+	//! @param		number 		The number you wish to convert into a engineering notated string.
+	this.ToEngNotation = function(number)
+	{
+
+		//! @brief	This variable maps the multiplier to the symbol that is used as a suffix to a number.
+	    var unitMap = {
+	    	1e-24:'y', 1e-21:'z', 1e-18:'a', 1e-15:'f', 1e-12:'p', 1e-9:'n', 1e-6:'u', 1e-3:'m',
+	    	1e0:'',
+	    	1e3:'k', 1e6:'M', 1e9:'G', 1e12:'T', 1e15:'P', 1e18:'E', 1e21:'Z', 1e24:'Y'};
+
+		var space = '&thinsp;';
+
+		var numLog10 = this.Log10(number);
+		//console.log("numLog10 = '" + numLog10 + "'.");
+
+		var numDiv3 = numLog10 / 3;
+		//console.log("numDiv3 = '" + numDiv3 + "'.");
+
+		var numDiv3Floor = Math.floor(numDiv3);
+		//console.log("numDiv3Floor = '" + numDiv3Floor + "'.");
+
+		var closestUnitAsNumber = Math.pow(1000, numDiv3Floor);
+		//console.log("closestUnitAsNumber = '" + closestUnitAsNumber + "'.");
+
+		// Now lets find the symbol for the closest engineering suffix, using
+		// the unitMap
+		closestUnitAsSymbol = unitMap[closestUnitAsNumber];
+		//console.log("closestUnitAsSymbol = '" + closestUnitAsSymbol + "'.");
+
+		result = number/closestUnitAsNumber + closestUnitAsSymbol;
+		//console.log("result = '" + result + "'.");
+
+		return result;
+	}
 	
-	//! @brief		This can act as both an input and an output.
+	// Function calculates the base-10 log of the given input
+	this.Log10 = function(val)
+	{
+		// Use rule log10(x) = ln(x)/ln(10)
+		return Math.log(val) / Math.LN10;
+	}
+
+	//! @brief		This is a calculator variable that can act as both an input and an output.
 	//! @param		obj Contains all the setup data.
 	//!					obj.name 	The name of the variable, used for debugging purposes only.
 	//!					obj.units 	The available units for the variable.
+	//!					obj.selUnit 	The default unit for the variable. 0-indexed. Must not be greater than
+	//!									the number of objects passed into obj.units.
 	this.variable = function(obj)
 	{
 			
@@ -445,17 +492,49 @@ var cc = new function()
 							severity)
 					);
 					break;
-				//case default:
-					//console.log('Enum not recognised.');
+				case cc.validatorEnum.IS_NEGATIVE_OR_ZERO:
+					Log('Adding IS_NEGATIVE_OR_ZERO validator.');
+					this.validatorA.push(
+						new cc.validator(
+							this,
+							'Value must be negative or zero!',
+							function(variable)
+							{								
+								return variable.val() <= 0;
+							}, 
+							severity)
+					);
+					break;
+				case cc.validatorEnum.IS_POSITIVE_OR_ZERO:
+					Log('Adding IS_POSITIVE_OR_ZERO validator.');
+					this.validatorA.push(
+						new cc.validator(
+							this,
+							'Value must be positive or zero!',
+							function(variable)
+							{								
+								return variable.val() >= 0;
+							}, 
+							severity)
+					);
+					break;
+				default:
+					console.log('ERROR: Enum not recognised.');
 			}
 		}
 
 		//! @brief		Adds a custom validator to the calculator variable.
+		//! @param		app
+		//! @param		msg 		The message you want to display in the tooltip if the validator fails.
+		//! @param		fn 			The function which performs the validation. Must return true if value is o.k., 
+		//! 						otherwise false.
+		//! @param		severity 	The severity of the validation. Must be a member of the cc.severityEnum enumeration.
 		this.AddCustomValidator = function(app, msg, fn, severity)
 		{
 			// Create new validator object and add to the end of the array
 			this.validatorA.push(new cc.validator(app, msg, fn, severity));
 		}
+
 				
 	};
 };
