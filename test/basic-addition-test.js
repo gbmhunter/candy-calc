@@ -3,7 +3,7 @@
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @edited 		n/a
 //! @date 			2013-11-23
-//! @last-modified	2014-11-08
+//! @last-modified	2015-06-15
 //! @brief 			Basic addition test.
 //! @details
 //!				See the README in the repo's root dir for more info.

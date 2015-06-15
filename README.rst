@@ -12,7 +12,7 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2013-11-11
 - Last Modified: 2015-06-15
-- Version: v7.6.21.0
+- Version: v7.6.22.0
 - Company: mbedded.ninja
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -39,6 +39,8 @@ Features:
 	- Behind-the-scenes binding (candy-calc implements the MVVM model using knockout.js), so you don't have to worry about event handlers
 	- You can run more than one calculator inside a web page.
 	- Dependencies are downloaded via CDN to increase page load times
+
+NOTE: (2015-06-15) Unit tests are currently not working when run automatically through TravisCI, although they do work manually if you load up test/index.html in a browser.
 
 Built-in Validators
 -------------------
@@ -87,6 +89,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v7.6.22.0 2015-06-15 Added QUnit css stylesheet back into unit test 'index.html'. Added note to README about how unit tests don't run correctly when run automatically.
 v7.6.21.0 2015-06-15 Renamed 'index.php' back to 'index.html', the php file didn't work.
 v7.6.20.0 2015-06-15 Reintroduced the original candy-calc unit tests.
 v7.6.19.0 2015-06-15 Configured .travis.yml to use node package 'qunit-phantomjs-runner'.
