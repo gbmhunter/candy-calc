@@ -12,7 +12,7 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2013-11-11
 - Last Modified: 2015-06-15
-- Version: v7.6.9.0
+- Version: v7.6.10.0
 - Company: CladLabs
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -87,6 +87,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v7.6.10.0 2015-06-15 Trying 'which(node)' to get 'sudo node' to work.
 v7.6.9.0  2015-06-15 Moved the code to the 'before_install' section of the .travis.yml file.
 v7.6.8.0  2015-06-15 Attempt at getting 'sudo node' to run by adding some code to .travis.yml file.
 v7.6.7.0  2015-06-15 Removed 'cd project' from .travis.yml file.
