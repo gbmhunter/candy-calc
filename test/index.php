@@ -8,21 +8,17 @@
 	<body>
 	  <div id="qunit"></div>
 	  <div id="qunit-fixture"></div>
-	  <script src="http://code.jquery.com/qunit/qunit-1.14.0.js"></script>
+	    <script src="http://code.jquery.com/qunit/qunit-1.18.0.js"></script>
 	  
 		<script type="text/javascript">
 			window.jQuery || document.write('<script src="http://code.jquery.com/jquery-latest.min.js"><\/script>')
 		</script>
-			
-		<?php
-			echo '<script type="text/javascript" src="lib/candy-calc/js/candy-calc.js"></script>';
-			echo '<link type="text/css" rel="stylesheet" href="' . dirname(__FILE__) . '/css/candy-calc.css"></script>';
-		?>	
-
+		
+		
 		<!-- candy-calc logic -->
-		<!--<script type="text/javascript" src="lib/candy-calc/js/candy-calc.js" ></script>-->
+		<script type="text/javascript" src="http://localhost:80/js/candy-calc.js" ></script>
 		<!-- candy-calc CSS file -->
-		<!--<link type="text/css" rel="stylesheet" href="lib/candy-calc/css/candy-calc.css" />-->
+		<link type="text/css" rel="stylesheet" href="http://localhost:80/css/candy-calc.css" />
 
 		<table id="ohmsLaw" class="candy-calc" border="4" style="width: 600px;">
 			<tbody>
@@ -79,10 +75,8 @@
 			</tbody>
 		</table>
 
-		<?php
-			echo '<script type="text/javascript" src="' . dirname(__FILE__) . '/basic-addition-test.js"></script>';
-			echo '<script type="text/javascript" src="' . dirname(__FILE__) . '/QUnitTests.js"></script>';
-		?>		
+		<script type="text/javascript" src="http://localhost:80/test/basic-addition-test.js"></script>
+		<script type="text/javascript" src="http://localhost:80/test/QUnitTests.js"></script>	
 
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	   

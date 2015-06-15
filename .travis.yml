@@ -8,4 +8,4 @@ before_script:
   - ls
   - sudo $(which node) test/js/server.js &
   - sleep 5
-script: phantomjs node_modules/qunit-phantomjs-runner/runner.js 'http://localhost:80/test/index.html'
+script: phantomjs node_modules/qunit-phantomjs-runner/runner.js 'http://localhost:80/test/index.php'
