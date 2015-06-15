@@ -4,7 +4,8 @@ node_js:
 before_script:
   - npm install connect
   - npm install serve-static
+  - npm install qunit-phantomjs-runner
   - ls
   - sudo $(which node) test/js/server.js &
   - sleep 5
-script: phantomjs test/qunit/run-qunit.js 'http://localhost:80/test/index.html'
+script: phantomjs node_modules/qunit-phantomjs-runner/runner.js 'http://localhost:80/test/index.html'

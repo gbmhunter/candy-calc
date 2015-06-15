@@ -12,8 +12,8 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2013-11-11
 - Last Modified: 2015-06-15
-- Version: v7.6.18.0
-- Company: CladLabs
+- Version: v7.6.19.0
+- Company: mbedded.ninja
 - Language: HTML/JS/PHP
 - Compiler: n/a
 - uC Model: n/a
@@ -87,6 +87,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v7.6.19.0 2015-06-15 Configured .travis.yml to use node package 'qunit-phantomjs-runner'.
 v7.6.18.0 2015-06-15 Removed xvfb app reference as not needed.
 v7.6.17.0 2015-06-15 Replaced tests with basic test example from qunitjs.com.
 v7.6.16.0 2015-06-15 Added ampersand back into node server start command so it runs as a seperate process.
