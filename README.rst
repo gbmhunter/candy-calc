@@ -12,7 +12,7 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2013-11-11
 - Last Modified: 2015-06-15
-- Version: v7.6.14.0
+- Version: v7.6.15.0
 - Company: CladLabs
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -87,6 +87,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v7.6.15.0 2015-06-15 Added 'which(node)' again, seems like we need sudo access.
 v7.6.14.0 2015-06-15 Changed 'server.js' syntax again.
 v7.6.13.0 2015-06-15 Renamed a function to suit new 'serve-static' module.
 v7.6.12.0 2015-06-15 Added 'serve-static' node module to support missing dependency.
