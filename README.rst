@@ -12,7 +12,7 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2013-11-11
 - Last Modified: 2015-06-15
-- Version: v7.6.20.0
+- Version: v7.6.21.0
 - Company: mbedded.ninja
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -87,6 +87,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v7.6.21.0 2015-06-15 Renamed 'index.php' back to 'index.html', the php file didn't work.
 v7.6.20.0 2015-06-15 Reintroduced the original candy-calc unit tests.
 v7.6.19.0 2015-06-15 Configured .travis.yml to use node package 'qunit-phantomjs-runner'.
 v7.6.18.0 2015-06-15 Removed xvfb app reference as not needed.
