@@ -12,7 +12,7 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2013-11-11
 - Last Modified: 2015-06-15
-- Version: v7.6.1.0
+- Version: v7.6.2.0
 - Company: CladLabs
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -87,6 +87,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v7.6.2.0  2015-06-15 Modified .travis.yml to just use latest stable version of node.js.
 v7.6.1.0  2015-06-15 Attempt to fix failing unit tests by swicthing to node.js platform (this is only a basic test commit).
 v7.6.0.0  2015-06-15 Added css styling for the 'calc-image' class, to style images that support an associated calculator. Added more comments to the code in 'candy-calc.js'. Implemented 'IS_NEGATIVE_OR_ZERO' and 'IS_POSITIVE_OR_ZERO' validator enums, closes #48. Added 'cc.ToEngNotation()'' function which converts a number into a string in engineering notation (i.e. using suffixs such as u, m, k, M e.t.c).
 v7.5.0.0  2015-03-19 Removed internal dependencies (lib folder) from candy-calc, closes #50. Updated README accordingly.
