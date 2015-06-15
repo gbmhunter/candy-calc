@@ -1,4 +1,5 @@
 var connect = require('connect'),
+	serveStatic = require('serve-static'),
 	args = process.argv.slice(2),
 	folder = args[0] || '/../../',
 	port = args[1] || '80';	

@@ -5,6 +5,7 @@ before_script:
   - "export DISPLAY=:99.0" 
   - "sh -e /etc/init.d/xvfb start"
   - npm install connect
+  - npm install serve-static
   - ls
   - node test/js/server.js
   - sleep 20
