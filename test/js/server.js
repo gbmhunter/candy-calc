@@ -4,7 +4,7 @@ var connect = require('connect'),
 	folder = args[0] || '/../../',
 	port = args[1] || '80';	
 
-var server = connect.createServer(
+var server = connect().use(
     serveStatic(__dirname + folder)
 ).listen(port);
 
