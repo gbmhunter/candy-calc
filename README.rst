@@ -12,7 +12,7 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2013-11-11
 - Last Modified: 2015-06-15
-- Version: v7.6.5.0
+- Version: v7.6.6.0
 - Company: CladLabs
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -87,6 +87,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v7.6.6.0  2015-06-15 Printing out current directory.
 v7.6.5.0  2015-06-15 Fixed up cd directory.
 v7.6.4.0  2015-06-15 .travis.yml now moves into repo directory.
 v7.6.3.0  2015-06-15 Increased wait time for node.js server to start in .travis.yml file from 5s to 20s.
