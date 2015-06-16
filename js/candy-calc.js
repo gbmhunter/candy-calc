@@ -3,7 +3,7 @@
 // @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 // @edited 			n/a
 // @date 			2013-11-01
-// @last-modified	2015-06-15
+// @last-modified	2015-06-16
 // @brief 			Binding/calculating code for candy-calc.
 // @details
 //		See the README in the repo root dir for more info.
@@ -17,11 +17,13 @@ window.jQuery || document.write('<script src="http://code.jquery.com/jquery-late
 // Load knockout for binding functionality
 document.write('<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js"></script>');
 
-// Load knockout plugin "knockout-deferred-updates"
-document.write('<script type="text/javascript" src="/lib/knockout-deferred-updates/knockout-deferred-updates.js"></script>');
+// Load knockout plugin "knockout-deferred-updates".
+// This is stored under 'lib/'' in the candy-calc repo
+document.write('<script type="text/javascript" src="/lib/candy-calc/lib/knockout-deferred-updates/knockout-deferred-updates.js"></script>');
 
 // Load knockout plugin "knockout-postbox"
-document.write('<script type="text/javascript" src="/lib/knockout-postbox/src/knockout-postbox.js"></script>');
+// This is stored under 'lib/'' in the candy-calc repo
+document.write('<script type="text/javascript" src="/lib/candy-calc/lib/knockout-postbox/src/knockout-postbox.js"></script>');
 
 // MathJax for Latex rendering
 document.write('<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>');

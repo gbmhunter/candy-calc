@@ -11,8 +11,8 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2013-11-11
-- Last Modified: 2015-06-15
-- Version: v7.6.22.0
+- Last Modified: 2015-06-16
+- Version: v7.6.23.0
 - Company: mbedded.ninja
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -89,6 +89,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v7.6.23.0 2015-06-16 Added knockout plguins to 'lib/'. Modified everything so that candy-calc is designed to be cloned into 'lib/candy-calc/' folder on server.
 v7.6.22.0 2015-06-15 Added QUnit css stylesheet back into unit test 'index.html'. Added note to README about how unit tests don't run correctly when run automatically.
 v7.6.21.0 2015-06-15 Renamed 'index.php' back to 'index.html', the php file didn't work.
 v7.6.20.0 2015-06-15 Reintroduced the original candy-calc unit tests.
