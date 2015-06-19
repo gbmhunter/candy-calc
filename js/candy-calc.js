@@ -3,7 +3,7 @@
 // @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 // @edited 			n/a
 // @date 			2013-11-01
-// @last-modified	2015-06-16
+// @last-modified	2015-06-20
 // @brief 			Binding/calculating code for candy-calc.
 // @details
 //		See the README in the repo root dir for more info.
@@ -36,15 +36,16 @@ document.write('<link type="text/css" rel="stylesheet" href="http://cdnjs.cloudf
 document.write('<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.1.1/jquery.qtip.min.js"></script>');
 
 
-// Candy-calc "namespace"
-// All candy-calc framework should be inside this
+//! @brief		Candy-calc "namespace"
+//! @details	All candy-calc framework should be inside this
 var cc = new function()
 {
-	// Enumeration of pre-defined validators
+	//! @brief		Enumeration of pre-defined validators.
+	//! @details	Pass these into the "this.<your cc.variable object>.AddValidator()" function.
 	this.validatorEnum = {
-		'IS_NUMBER' 			: 1,
-		'IS_POSITIVE_OR_ZERO' 	: 2,
-		'IS_NEGATIVE_OR_ZERO' 	: 3
+		'IS_NUMBER' 			: 1,	//!< Variable must be a valid number
+		'IS_POSITIVE_OR_ZERO' 	: 2,	//!< Variable must be positive or zero.
+		'IS_NEGATIVE_OR_ZERO' 	: 3 	//!< Variable must be negative or zero.
 	}
 	
 	//! @brief		Enumeration of severity levels for validators. Severity level
@@ -101,157 +102,7 @@ var cc = new function()
 		);
 	}
 	
-	//! @brief		"Class" for a calcultor input variable.
-	this.input = function(app, validatorFn, units, selUnit) {
-
-		//! @brief		The displayed value for the variable
-		this.dispVal = ko.observable();
-
-		//! @biref		Array of the available units for the variable.
-		this.units = ko.observableArray(units);
-
-		//! @brief		The currently selected unit for the array of available units.
-		this.selUnit = ko.observable(this.units()[selUnit]);
-		
-		//! @brief		Hidded, actual and scaled value, taking into account the units.
-		this.val = ko.computed( function(){
-			return this.dispVal()*this.selUnit().multiplier;
-			},
-			this);
-
-		//! @brief		Holds all validator functions.
-		this.validatorA = ko.observableArray();
-		
-		this.trigIndex = ko.observable();
-		
-		//! @brief		Runs through all the validator functions
-		//! @details	Default is to just return true.
-		this.isValid = ko.computed(
-			function()
-			{
-				Log('Computing isValid for input.');
-				Log('Validator array length = ' + this.validatorA().length);
-				for (var i = 0; i < this.validatorA().length; i++) {
-					if(this.validatorA()[i].fn(this.validatorA()[i].app) == false)
-					{
-						// Remember the validator which returned false
-						Log('Setting index.');
-						this.trigIndex(i);
-						Log('Returning false.');
-						return false;
-					}
-				}
-				// Only gets here if no validator function returned false 
-				// (or there were no validator functions)
-				Log('Returning true.');
-				return true;
-			},
-			this
-		);
-		
-		//========================= Methods =========================//
 	
-		//! @brief		Call this to add a validator for the variable.
-		//! @details
-		//! @param	validatorEnum	The type of validator you are adding.
-		//! @param	severity 		The severity of the validator.
-		this.AddValidator = function(validatorEnum, severity)
-		{
-			switch(validatorEnum)
-			{
-				case cc.validatorEnum.IS_NUMBER:
-					Log('Adding IS_NUMBER validator.');
-					this.validatorA.push(
-						new cc.validator(
-							this,
-							'Value must be a number!',
-							function(variable)
-							{
-								Log('Testing ' + variable.val());
-								return jQuery.isNumeric(variable.val());
-							}, 
-							severity)
-					);
-					break;
-				//case default:
-					//console.log('Enum not recognised.');
-			}
-		}
-		
-		this.AddCustomValidator = function(app, msg, fn, severity)
-		{
-			// Create new validator object and add to the end of the array
-			Log('Adding new custom validator.');
-			this.validatorA.push(new cc.validator(app, msg, fn, severity));
-		}
-		
-		
-   }; // this.input
-	
-	//! @brief		"Class" for a calcultor output variable.
-	this.output = function(app, compFn, validatorFn, units, selUnit, roundTo) {
-			
-		this.units = ko.observableArray(units);
-		this.selUnit = ko.observable(this.units()[selUnit]);
-		
-		this.val = ko.computed(compFn, app);
-		
-		// Number of decimal places to round value to
-		if(roundTo != null)
-			this.roundTo = roundTo;
-		else
-			this.roundTo = 1;
-		
-		// This is the displayed value
-		this.dispVal = ko.computed(function(){
-				var unroundedVal = this.val()/this.selUnit().multiplier;
-				// Round the value
-				var roundedVal = Math.round(unroundedVal*Math.pow(10, this.roundTo))/Math.pow(10, this.roundTo);
-				//var roundedVal = this.val();
-				return roundedVal;
-			},
-			this);				
-		
-		this.lowerBound = 0; //ko.observable(lowerBound);
-		this.upperBound = 0; //ko.observable(upperBound);
-
-		// Holds all validator functions
-		this.validatorA = ko.observableArray();
-		
-		this.trigIndex = ko.observable();
-		
-		// Default is to just return true.
-		this.isValid = ko.computed(
-			function()
-			{
-				Log('Computing isValid for output.');
-				Log('Validator array length = ' + this.validatorA().length);
-				for (var i = 0; i < this.validatorA().length; i++) {
-					if(this.validatorA()[i].fn(this.validatorA()[i].app) == false)
-					{
-						// Remember the validator which returned false
-						//this.triggeredValidator(this.validatorA()[i]);
-						Log('Setting index.');
-						this.trigIndex(i);
-						Log('Returning false.');
-						return false;
-					}
-				}
-				// Only gets here if no validator function returned false
-				Log('Returning true.');
-				return true;
-			},
-			this
-		);
-				
-		// Methods
-		this.AddCustomValidator = function(app, msg, fn)
-		{
-			// Create new validator object and add to the end of the array
-			this.validatorA.push(new validator(app, msg, fn));
-		}
-				
-	};
 
 	//! @brief		Converts a number into a string with engineering notation (i.e. using the suffixes u, m, k, M e.t.c).
 	//! @param		number 		The number you wish to convert into a engineering notated string.
@@ -692,4 +543,160 @@ function Log(msg)
 }
 
 
+//=============================================================================================================//
+//============================================== GRAVEYARD ====================================================//
+//=============================================================================================================//
 
+/* Moved to graveyard on 2015-06-20
+//! @brief		"Class" for a calcultor input variable.
+	this.input = function(app, validatorFn, units, selUnit) {
+
+		//! @brief		The displayed value for the variable
+		this.dispVal = ko.observable();
+
+		//! @biref		Array of the available units for the variable.
+		this.units = ko.observableArray(units);
+
+		//! @brief		The currently selected unit for the array of available units.
+		this.selUnit = ko.observable(this.units()[selUnit]);
+		
+		//! @brief		Hidded, actual and scaled value, taking into account the units.
+		this.val = ko.computed( function(){
+			return this.dispVal()*this.selUnit().multiplier;
+			},
+			this);
+
+		//! @brief		Holds all validator functions.
+		this.validatorA = ko.observableArray();
+		
+		this.trigIndex = ko.observable();
+		
+		//! @brief		Runs through all the validator functions
+		//! @details	Default is to just return true.
+		this.isValid = ko.computed(
+			function()
+			{
+				Log('Computing isValid for input.');
+				Log('Validator array length = ' + this.validatorA().length);
+				for (var i = 0; i < this.validatorA().length; i++) {
+					if(this.validatorA()[i].fn(this.validatorA()[i].app) == false)
+					{
+						// Remember the validator which returned false
+						Log('Setting index.');
+						this.trigIndex(i);
+						Log('Returning false.');
+						return false;
+					}
+				}
+				// Only gets here if no validator function returned false 
+				// (or there were no validator functions)
+				Log('Returning true.');
+				return true;
+			},
+			this
+		);
+		
+		//========================= Methods =========================//
+	
+		//! @brief		Call this to add a validator for the variable.
+		//! @details
+		//! @param	validatorEnum	The type of validator you are adding.
+		//! @param	severity 		The severity of the validator.
+		this.AddValidator = function(validatorEnum, severity)
+		{
+			switch(validatorEnum)
+			{
+				case cc.validatorEnum.IS_NUMBER:
+					Log('Adding IS_NUMBER validator.');
+					this.validatorA.push(
+						new cc.validator(
+							this,
+							'Value must be a number!',
+							function(variable)
+							{
+								Log('Testing ' + variable.val());
+								return jQuery.isNumeric(variable.val());
+							}, 
+							severity)
+					);
+					break;
+				//case default:
+					//console.log('Enum not recognised.');
+			}
+		}
+		
+		this.AddCustomValidator = function(app, msg, fn, severity)
+		{
+			// Create new validator object and add to the end of the array
+			Log('Adding new custom validator.');
+			this.validatorA.push(new cc.validator(app, msg, fn, severity));
+		}
+		
+		
+   }; // this.input
+	
+	//! @brief		"Class" for a calcultor output variable.
+	this.output = function(app, compFn, validatorFn, units, selUnit, roundTo) {
+			
+		this.units = ko.observableArray(units);
+		this.selUnit = ko.observable(this.units()[selUnit]);
+		
+		this.val = ko.computed(compFn, app);
+		
+		// Number of decimal places to round value to
+		if(roundTo != null)
+			this.roundTo = roundTo;
+		else
+			this.roundTo = 1;
+		
+		// This is the displayed value
+		this.dispVal = ko.computed(function(){
+				var unroundedVal = this.val()/this.selUnit().multiplier;
+				// Round the value
+				var roundedVal = Math.round(unroundedVal*Math.pow(10, this.roundTo))/Math.pow(10, this.roundTo);
+				//var roundedVal = this.val();
+				return roundedVal;
+			},
+			this);				
+		
+		this.lowerBound = 0; //ko.observable(lowerBound);
+		this.upperBound = 0; //ko.observable(upperBound);
+
+		// Holds all validator functions
+		this.validatorA = ko.observableArray();
+		
+		this.trigIndex = ko.observable();
+		
+		// Default is to just return true.
+		this.isValid = ko.computed(
+			function()
+			{
+				Log('Computing isValid for output.');
+				Log('Validator array length = ' + this.validatorA().length);
+				for (var i = 0; i < this.validatorA().length; i++) {
+					if(this.validatorA()[i].fn(this.validatorA()[i].app) == false)
+					{
+						// Remember the validator which returned false
+						//this.triggeredValidator(this.validatorA()[i]);
+						Log('Setting index.');
+						this.trigIndex(i);
+						Log('Returning false.');
+						return false;
+					}
+				}
+				// Only gets here if no validator function returned false
+				Log('Returning true.');
+				return true;
+			},
+			this
+		);
+				
+		// Methods
+		this.AddCustomValidator = function(app, msg, fn)
+		{
+			// Create new validator object and add to the end of the array
+			this.validatorA.push(new validator(app, msg, fn));
+		}
+				
+	};
+*/

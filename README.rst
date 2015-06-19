@@ -11,8 +11,8 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2013-11-11
-- Last Modified: 2015-06-16
-- Version: v7.6.23.0
+- Last Modified: 2015-06-20
+- Version: v7.6.24.0
 - Company: mbedded.ninja
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -30,7 +30,7 @@ candy-calc can be used to easily create good looking calculators that run inside
 Features:
 	- Support for inputs (user-entered variables) and outputs (calculated variables)
 	- Support for toggle-happy variables which can be both inputs and outputs
-	- Support for selectable units (e.g. mV, V, kV) and automatic scaling
+	- Support for selectable variable units (e.g. mV, V, kV) and automatic scaling
 	- Built in validators to check consistency of inputs and outputs
 	- Ability to add custom validators to both inputs and outputs (e.g. this y must be > x + 2) 
 	- Inline tooltip support for warnings/errors to inform the user about what is wrong
@@ -38,17 +38,20 @@ Features:
 	- Configurable CSS file to customise the look to suit your application
 	- Behind-the-scenes binding (candy-calc implements the MVVM model using knockout.js), so you don't have to worry about event handlers
 	- You can run more than one calculator inside a web page.
-	- Dependencies are downloaded via CDN to increase page load times
-
-NOTE: (2015-06-15) Unit tests are currently not working when run automatically through TravisCI, although they do work manually if you load up test/index.html in a browser.
+	- Dependencies are downloaded via CDN where possible to decrease page load times
 
 Built-in Validators
 -------------------
-========== ====================
-Name       Description
-========== ====================
-IS_NUMERIC Returns true is number is a numeral, otherwise false. Follows jQuery.isNumeric().
-========== ====================
+
+The following table lists the built-in validators you can add to any calculator variable (i.e. any ``cc.variable`` object). If these do not meet your needs, you can add your own custom validators using ``this.<your cc.variable object>.AddCustomValidator()``.
+
+======================== ===============================================
+Name                     Description
+======================== ===============================================
+IS_NUMERIC               Variable must be a valid numeral. Follows the same logic as `jQuery.isNumeric()`.
+IS_POSITIVE_OR_ZERO      Number must be positive or zero (i.e. not negative).
+IS_NEGATIVE_OR_ZERO      Number must be negative or zero (i.e. not positive).
+======================== ===============================================
 
 Dependencies
 ============
@@ -81,7 +84,13 @@ See GitHub Issues.
 Usage
 =====
 
-This repo is designed so that you can clone it directly (using SSH) into a web servers ``public_html`` folder (or any sub-folder).
+1. Clone/download this repo into into a folder ``public_html/lib/candy-calc/`` on your web server.
+
+2. Include ``lib/candy-calc/js/candy-calc.js`` and ``lib/candy-calc/css/candy-calc.css`` on the webpage(s) you wish to use candy-calc on.
+
+3. See the test example in this repo's ``test/`` folder or in the repo `mbedded-ninja/eng-calcs-js`_ for examples to build your own calculators from.
+
+.._mbedded-ninja/eng-calcs-js: https://github.com/mbedded-ninja/eng-calcs-js
 	
 Changelog
 =========
@@ -89,6 +98,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v7.6.24.0 2015-06-20 Removed the cc.input and cc.output objects (now replaced by dual-purpose cc.variable), closes #53. Improved the Usage section in this README. Added newly added validators to README, closes #54.
 v7.6.23.0 2015-06-16 Added knockout plguins to 'lib/'. Modified everything so that candy-calc is designed to be cloned into 'lib/candy-calc/' folder on server.
 v7.6.22.0 2015-06-15 Added QUnit css stylesheet back into unit test 'index.html'. Added note to README about how unit tests don't run correctly when run automatically.
 v7.6.21.0 2015-06-15 Renamed 'index.php' back to 'index.html', the php file didn't work.
