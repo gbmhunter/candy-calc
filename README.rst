@@ -12,7 +12,7 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2013-11-11
 - Last Modified: 2015-06-20
-- Version: v7.6.24.0
+- Version: v7.6.24.1
 - Company: mbedded.ninja
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -90,7 +90,7 @@ Usage
 
 3. See the test example in this repo's ``test/`` folder or in the repo `mbedded-ninja/eng-calcs-js`_ for examples to build your own calculators from.
 
-.._mbedded-ninja/eng-calcs-js: https://github.com/mbedded-ninja/eng-calcs-js
+.. _mbedded-ninja/eng-calcs-js: https://github.com/mbedded-ninja/eng-calcs-js
 	
 Changelog
 =========
@@ -98,6 +98,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v7.6.24.1 2015-06-20 Fixed URL in README.
 v7.6.24.0 2015-06-20 Removed the cc.input and cc.output objects (now replaced by dual-purpose cc.variable), closes #53. Improved the Usage section in this README. Added newly added validators to README, closes #54.
 v7.6.23.0 2015-06-16 Added knockout plguins to 'lib/'. Modified everything so that candy-calc is designed to be cloned into 'lib/candy-calc/' folder on server.
 v7.6.22.0 2015-06-15 Added QUnit css stylesheet back into unit test 'index.html'. Added note to README about how unit tests don't run correctly when run automatically.
