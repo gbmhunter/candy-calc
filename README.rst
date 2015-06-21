@@ -12,7 +12,7 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2013-11-11
 - Last Modified: 2015-06-22
-- Version: v7.7.0.0
+- Version: v7.7.0.1
 - Company: mbedded.ninja
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -52,6 +52,8 @@ IS_NUMERIC               Variable must be a valid numeral. Follows the same logi
 IS_POSITIVE_OR_ZERO      Number must be positive or zero (i.e. not negative).
 IS_NEGATIVE_OR_ZERO      Number must be negative or zero (i.e. not positive).
 ======================== ===============================================
+
+For any calculator variable that is currently an input (remember variables can change between being an input and output), candy-calc will display a tooltip if any of it's validators fail. The tooltip will contain a list of all the validators which failed (as human-readable messages) and are of the current maximum severity for that variable (i.e. it will display a list of all the currently failing errors, or a list of all the currently failing warnings). No tooltip is displayed if the variable value passes all validation tests.
 
 Custom Bindings
 ---------------
@@ -112,6 +114,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v7.7.0.1  2015-06-22 Added info to the README about how failed validator messages are displayed in the tooltips.
 v7.7.0.0  2015-06-22 Now shows all failed validators (in tooltip) of the worst severity for a calculator variable, closes #59.
 v7.6.26.0 2015-06-21 Changed use of '$' to 'jQuery' as to avoid conflict with Wordpress, closes #58.
 v7.6.25.0 2015-06-21 Added a knockout.js custom binding that fades in/out HTML elements, closes #57. Added information about custom bindings to README.
