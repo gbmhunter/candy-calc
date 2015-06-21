@@ -11,8 +11,8 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2013-11-11
-- Last Modified: 2015-06-20
-- Version: v7.6.24.1
+- Last Modified: 2015-06-21
+- Version: v7.6.25.0
 - Company: mbedded.ninja
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -52,6 +52,20 @@ IS_NUMERIC               Variable must be a valid numeral. Follows the same logi
 IS_POSITIVE_OR_ZERO      Number must be positive or zero (i.e. not negative).
 IS_NEGATIVE_OR_ZERO      Number must be negative or zero (i.e. not positive).
 ======================== ===============================================
+
+Custom Bindings
+---------------
+
+candy-calc makes use of knockout.js's ability to add custom bindings.
+
+The custom bindings are:
+
+================== ========================================
+Custom Binding     Description
+================== ========================================
+calcVar            Use this binding for the text boxes used to input/display calculator variable values. 
+fadeVisible        Use this binding on HTML elements you wish to fade in and out (uses jQuery's ``fadeIn()/fadeOut()`` functions).
+================== ========================================
 
 Dependencies
 ============
@@ -98,6 +112,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v7.6.25.0 2015-06-21 Added a knockout.js custom binding that fades in/out HTML elements, closes #57. Added information about custom bindings to README.
 v7.6.24.1 2015-06-20 Fixed URL in README.
 v7.6.24.0 2015-06-20 Removed the cc.input and cc.output objects (now replaced by dual-purpose cc.variable), closes #53. Improved the Usage section in this README. Added newly added validators to README, closes #54.
 v7.6.23.0 2015-06-16 Added knockout plguins to 'lib/'. Modified everything so that candy-calc is designed to be cloned into 'lib/candy-calc/' folder on server.

@@ -3,7 +3,7 @@
 // @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 // @edited 			n/a
 // @date 			2013-11-01
-// @last-modified	2015-06-20
+// @last-modified	2015-06-21
 // @brief 			Binding/calculating code for candy-calc.
 // @details
 //		See the README in the repo root dir for more info.
@@ -392,8 +392,8 @@ var cc = new function()
 	};
 };
 
-// Stuff to execute on start-up
-// - Register custom binding handler
+//! @brief		Stuff to execute on start-up
+//! @details	Register custom binding handlers.
 jQuery(document).ready(
 	function StartUp()
 	{	  		
@@ -515,21 +515,21 @@ jQuery(document).ready(
 			 }
 		};
 		
-		/*
-		jQuery.fn.qtip.styles.warningStyle = { // Last part is the name of the style
-		   width: 200,
-		   background: '#A2D959',
-		   color: 'orange',
-		   textAlign: 'center',
-		   border: {
-		      width: 7,
-		      radius: 5,
-		      color: '#A2D959'
-		   },
-		   tip: 'bottomLeft',
-		   name: 'dark' // Inherit the rest of the attributes from the preset dark style
-		}
-		*/
+		//! @brief		Here's a custom Knockout binding that makes elements shown/hidden via jQuery's fadeIn()/fadeOut() methods.
+		//! @details	Use instead of the "visible" binding if you want to add fade animation.
+		ko.bindingHandlers.fadeVisible = {
+		    init: function(element, valueAccessor) {
+		        // Initially set the element to be instantly visible/hidden depending on the value
+		        var value = valueAccessor();
+		        $(element).toggle(ko.unwrap(value)); // Use "unwrapObservable" so we can handle values that may or may not be observable
+		    },
+		    update: function(element, valueAccessor) {
+		        // Whenever the value subsequently changes, slowly fade the element in or out
+		        var value = valueAccessor();
+		        ko.unwrap(value) ? $(element).fadeIn() : $(element).fadeOut();
+		    }
+		};
+	
 	}
 );
 
