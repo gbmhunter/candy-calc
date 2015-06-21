@@ -11,8 +11,8 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2013-11-11
-- Last Modified: 2015-06-21
-- Version: v7.6.26.0
+- Last Modified: 2015-06-22
+- Version: v7.7.0.0
 - Company: mbedded.ninja
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -112,6 +112,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v7.7.0.0  2015-06-22 Now shows all failed validators (in tooltip) of the worst severity for a calculator variable, closes #59.
 v7.6.26.0 2015-06-21 Changed use of '$' to 'jQuery' as to avoid conflict with Wordpress, closes #58.
 v7.6.25.0 2015-06-21 Added a knockout.js custom binding that fades in/out HTML elements, closes #57. Added information about custom bindings to README.
 v7.6.24.1 2015-06-20 Fixed URL in README.

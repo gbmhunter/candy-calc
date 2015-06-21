@@ -3,7 +3,7 @@
 // @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 // @edited 			n/a
 // @date 			2013-11-01
-// @last-modified	2015-06-21
+// @last-modified	2015-06-22
 // @brief 			Binding/calculating code for candy-calc.
 // @details
 //		See the README in the repo root dir for more info.
@@ -51,6 +51,7 @@ var cc = new function()
 	//! @brief		Enumeration of severity levels for validators. Severity level
 	//! 			determines background colour of variable.
 	this.severityEnum = {
+		'ok'					: 0,
 		'warning' 				: 1,
 		'error' 				: 2
 	}
@@ -67,7 +68,11 @@ var cc = new function()
 			  this.multiplier = multiplier;
 	};
 	
-	//! @brief		"Class" for validator object, which holds both a message and validator function.
+	//! @brief		"Class" for validator object, which is created everytime you add a validator to a calculator variable.
+	//! @param		app 		The application object, so the validator function can access other variables in the calculator.
+	//! @param		msg 		The message to display to the user if the validator returns false.
+	//! @param		fn 			The function which performs the validation. The function must return true if value is o.k., otherwise false.
+	//! @param		severity 	The severity if the validation fails.
 	this.validator = function(app, msg, fn, severity)
 	{
 		this.app = app;
@@ -296,7 +301,8 @@ var cc = new function()
 		
 		this.trigIndex = ko.observable();
 		
-		// Default is to just return true.
+		//! @brief		Use to determine if variable value is valid.
+		//! @details	Also modifies this.trigIndex().
 		this.isValid = ko.computed(
 			function()
 			{
@@ -323,8 +329,8 @@ var cc = new function()
 				
 		//========================= METHODS =========================
 
-		//! @brief		Call this to add a validator for the variable.
-		//! @details
+		//! @brief		Call this to add a validator for the variable value.
+		//! @details	
 		//! @param	validatorEnum	The type of validator you are adding.
 		//! @param	severity 		The severity of the validator.
 		this.AddValidator = function(validatorEnum, severity)
@@ -397,7 +403,7 @@ var cc = new function()
 jQuery(document).ready(
 	function StartUp()
 	{	  		
-		// Create custom binding
+		//! @brief		Custom "calcVar" binding.
 		ko.bindingHandlers.calcVar = {
 			init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
 				// This will be called when the binding is first applied to an element
@@ -415,10 +421,13 @@ jQuery(document).ready(
 				Log('Initialising calculator variable handlers');			
 								
 			 },
-			update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+			update: function(element, valueAccessor, allBindings, viewModel, bindingContext)
+			{
 				// This will be called once when the binding is first applied to an element,
 				// and again whenever the associated observable changes value.
 				// Update the DOM element based on the supplied values here.
+
+				// valueAccessor() can be used to access the cc.variable() object
 		
 				// Call value binding (child binding)
 				ko.bindingHandlers.value.update(
@@ -428,91 +437,124 @@ jQuery(document).ready(
 					viewModel,
 					bindingContext);
 				  						
-				  	Log('ko.bindingHandlers.calcVar.update() called for ' + valueAccessor().name + '.');
+			  	Log('ko.bindingHandlers.calcVar.update() called for ' + valueAccessor().name + '.');
 
-					if(valueAccessor().isValid() == false) // Validator returned false, value did not pass this test
+			  	// VARIABLE VALUE VALIDATION
+
+			  	// Lets assume variable is o.k. by default, worstSeverity will be overwritten
+			  	// by any higher severities (ok == 0).
+			  	var worstSeverity = cc.severityEnum.ok;
+
+			  	// Lets iterate through all validators, and find if the variable fails validation, and what the worst severity is
+			  	for (var i = 0; i < valueAccessor().validatorA().length; i++) {
+			  		// Call the validator function, passing in the application object as an input variable
+					if(valueAccessor().validatorA()[i].fn(valueAccessor().validatorA()[i].app) == false)
 					{
-						Log('Activating tooltip.');
-						// jQuery(element).qtip('disable', false);
-						// Note that the only way I have found to successfully replace the tooltip text is
-						// to create an entirely new object. This is not the ideal method!
-						
-							
-						// Since validator returned false, add notValid class for CSS to render red
-						if(valueAccessor().validatorA()[valueAccessor().trigIndex()].severity == cc.severityEnum.warning)
+						if(worstSeverity < valueAccessor().validatorA()[i].severity)
 						{
-							Log('Severity == cc.severityEnum.warning.');
-							jQuery(element).removeClass("ok");
-							jQuery(element).removeClass('error'); 
-							jQuery(element).addClass('warning'); 	
-							
-							jQuery(element).qtip({
-								content: {
-									// Grab the text shown the the triggered validator object
-									text: valueAccessor().validatorA()[valueAccessor().trigIndex()].msg,
-									title: 'Warning!'
-								},
-								style: {
-									 classes: 'qTipWarning qtip-rounded qtip-shadow',								   
-								},
-								show: {
-									effect: function(offset) {
-										jQuery(this).slideDown(100); // "this" refers to the tooltip
-									}
-								},
-								hide: {
-									effect: function(offset) {
-										jQuery(this).slideDown(100); // "this" refers to the tooltip
-									}
-								}
-							});
-						} // if(valueAccessor().validatorA()[valueAccessor().trigIndex()].severity == cc.severityEnum.warning)						
-						else if(valueAccessor().validatorA()[valueAccessor().trigIndex()].severity == cc.severityEnum.error)
-						{
-							Log('Severity == cc.severityEnum.error.');
-							jQuery(element).removeClass("warning");
-							jQuery(element).removeClass("ok");
-							jQuery(element).addClass('error'); 
-							
-							jQuery(element).qtip({
-								content: {
-									// Grab the text shown the the triggered validator object
-									text: valueAccessor().validatorA()[valueAccessor().trigIndex()].msg,
-									title: 'Error!'
-								},
-								style: {
-									classes: 'qTipError qtip-rounded qtip-shadow'
-								},
-								show: {
-									effect: function(offset) {
-										jQuery(this).slideDown(100); // "this" refers to the tooltip
-									}
-								},
-								hide: {
-									effect: function(offset) {
-										jQuery(this).slideDown(100); // "this" refers to the tooltip
-									}
-								}
-							}); // jQuery(element).qtip({
-						} // else if(valueAccessor().validatorA()[valueAccessor().trigIndex()].severity == cc.severityEnum.error)
-						else
-						{
-							Log('ERROR: Severity not valid!');
+							worstSeverity = valueAccessor().validatorA()[i].severity;
 						}
-					} // if(valueAccessor().isValid() == false) 
-					else // Validator returned true, value passed this test
+					}
+				}
+
+				//console.log("worstSeverity = '" + worstSeverity + "'.");
+
+				// Now we know what the worst severity is, lets iterate back through and make up an message (in list format) of all the validators
+				// with that severity AND fail validation
+
+				var failedValidatorString = "<ul>";
+
+				for (var i = 0; i < valueAccessor().validatorA().length; i++) {
+					if(valueAccessor().validatorA()[i].severity == worstSeverity)
 					{
-						Log('Removing notValid class and disabling tooltip1.');
-						// Remove notValid class to make green again
-						jQuery(element).removeClass("warning");
-						jQuery(element).removeClass("error");
-						jQuery(element).addClass("ok");
-						// Disable tooltip which showed any errors
-						//jQuery(element).qtip('disable', true);
-						jQuery(element).qtip('destroy',true)
-					} // else
+						if(valueAccessor().validatorA()[i].fn(valueAccessor().validatorA()[i].app) == false)
+						{
+							// Validator is off the worst severity for this calculator variable and failed test, lets add to message
+							failedValidatorString += "<li>";
+							failedValidatorString += valueAccessor().validatorA()[i].msg;
+							failedValidatorString += "</li>";
+						}
+					}
+				}
+
+				failedValidatorString += "</ul>";
+				
+				//console.log("failedValidatorString = '" + failedValidatorString + "'.");
+
+				if(worstSeverity == cc.severityEnum.ok)
+				{
+					Log('Removing notValid class and disabling tooltip1.');
+					// Remove notValid class to make green again
+					jQuery(element).removeClass("warning");
+					jQuery(element).removeClass("error");
+					jQuery(element).addClass("ok");
+					// Disable tooltip which showed any errors
+					//jQuery(element).qtip('disable', true);
+					jQuery(element).qtip('destroy',true)
+				}
+				else if(worstSeverity == cc.severityEnum.warning) // if(worstSeverity == cc.severityEnum.ok)
+				{
+					Log('Severity == cc.severityEnum.warning.');
+						jQuery(element).removeClass("ok");
+						jQuery(element).removeClass('error'); 
+						jQuery(element).addClass('warning'); 	
+						
+						jQuery(element).qtip({
+							content: {
+								// Grab the text shown the the triggered validator object
+								//text: valueAccessor().validatorA()[valueAccessor().trigIndex()].msg,
+								text: failedValidatorString,
+								title: 'Warning!'
+							},
+							style: {
+								 classes: 'qTipWarning qtip-rounded qtip-shadow',								   
+							},
+							show: {
+								effect: function(offset) {
+									jQuery(this).slideDown(100); // "this" refers to the tooltip
+								}
+							},
+							hide: {
+								effect: function(offset) {
+									jQuery(this).slideDown(100); // "this" refers to the tooltip
+								}
+							}
+						});
+				}
+				else if(worstSeverity == cc.severityEnum.error) // if(worstSeverity == cc.severityEnum.ok)
+				{
+					Log('Severity == cc.severityEnum.error.');
+					jQuery(element).removeClass("warning");
+					jQuery(element).removeClass("ok");
+					jQuery(element).addClass('error'); 
 					
-			 }
+					jQuery(element).qtip({
+						content: {
+							// Grab the text shown the the triggered validator object
+							//text: valueAccessor().validatorA()[valueAccessor().trigIndex()].msg,
+							text: failedValidatorString,
+							title: 'Error!'
+						},
+						style: {
+							classes: 'qTipError qtip-rounded qtip-shadow'
+						},
+						show: {
+							effect: function(offset) {
+								jQuery(this).slideDown(100); // "this" refers to the tooltip
+							}
+						},
+						hide: {
+							effect: function(offset) {
+								jQuery(this).slideDown(100); // "this" refers to the tooltip
+							}
+						}
+					}); // jQuery(element).qtip({
+				}
+				else // if(worstSeverity == cc.severityEnum.ok)
+				{
+					Log('ERROR: Severity not valid!');
+				}
+			}
 		};
 		
 		//! @brief		Here's a custom Knockout binding that makes elements shown/hidden via jQuery's fadeIn()/fadeOut() methods.
