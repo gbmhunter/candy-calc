@@ -3,7 +3,7 @@
 // @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 // @edited 			n/a		
 // @created			2013-11-01
-// @last-modified 	2015-06-14
+// @last-modified 	2015-06-22
 // @brief 			CSS styling for candy-calc.
 // @details
 //		See the README in the repo root dir for more info.
@@ -18,7 +18,7 @@
 }
 
 /* Center align some of the calculator column contents */
-.name, .equation, .symbol, .units {
+.name, .equation, .symbol, .value, .units {
 		text-align: center;
 }
 
