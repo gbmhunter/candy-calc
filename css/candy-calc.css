@@ -93,6 +93,14 @@ table.candy-calc td {
 	font-size: 80%;
 }
 
+/* Styling for equations embedded in the calculator cells, normally in the comment
+cell */
+table.candy-calc td span.equation {
+	display: block;
+	padding: 8px;
+	text-align: center;
+}
+
 /* =============================================================================== */
 /* ============================== INPUT BOX STYLING ============================== */
 /* =============================================================================== */

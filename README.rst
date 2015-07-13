@@ -12,7 +12,7 @@ A framework for creating powerful and beautiful client-side Javascript calculato
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2013-11-11
 - Last Modified: 2015-07-13
-- Version: v7.7.2.0
+- Version: v7.7.3.0
 - Company: mbedded.ninja
 - Language: HTML/JS/PHP
 - Compiler: n/a
@@ -114,6 +114,7 @@ Changelog
 ========= ========== ==============================================================================================
 Version   Date       Comment
 ========= ========== ==============================================================================================
+v7.7.3.0  2015-07-13 Added CSS selectors for styling equations embedded in the calulator table cells.
 v7.7.2.0  2015-07-13 Made the CSS selectors more specific to the elements that they were targeting. Added more styling rules for the calculator tables.
 v7.7.1.0  2015-06-22 Added CSS to style calculators which use the '.value' class for the value column in the calculator table.
 v7.7.0.1  2015-06-22 Added info to the README about how failed validator messages are displayed in the tooltips.
