@@ -3,89 +3,158 @@
 // @author 			Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 // @edited 			n/a		
 // @created			2013-11-01
-// @last-modified 	2015-06-22
+// @last-modified 	2015-07-13
 // @brief 			CSS styling for candy-calc.
 // @details
 //		See the README in the repo root dir for more info.
 */
 
-.candy-calc{
+table.candy-calc {
 	/* Make table take up most of the width of the parent element */
 	width: 95%;
 	/* Centre table in parent element */
 	margin-left: auto;
 	margin-right: auto;
+
+	/* Prevent table from over-running sides */
+	table-layout: fixed;
+
 }
 
-/* Center align some of the calculator column contents */
-.name, .equation, .symbol, .value, .units {
-		text-align: center;
+/* Center align all of the calculator column contents,
+except for the comments (which is then changed to left below),
+also add padding to all cells */
+table.candy-calc td {
+	text-align: center;
+	padding: 3px;
+}
+
+table.candy-calc td.comments {
+	text-align: left;
 }
 
 .calc-image {
 	text-align: center;
 }
 
-/* Make comment column text smaller than normal, since
-this will likely have plenty of text in it */
-.comment {
-	font-size: small;
+/* Make sure no data overflows any cells in the calculator */
+table.candy-calc td {
+	overflow: hidden;
+	vertical-align: middle;
 }
+
+
+/* =========================================================================== */
+/* ======================== SETTING COLUMN WIDTH'S =========================== */
+/* =========================================================================== */
+
+table.candy-calc td.name {
+	width: 17%
+}
+
+table.candy-calc td.symbol {
+	width: 15%;
+}
+
+table.candy-calc td.value {
+	width: 15%;
+}
+
+table.candy-calc td.units {
+	width: 15%;
+}
+
+table.candy-calc td.comments {
+	width: 55%;
+}
+
+/* =========================================================================== */
+/* =========================== SETTING FONT SIZE'S =========================== */
+/* =========================================================================== */
+
+table.candy-calc td.heading {
+	font-weight: bold;
+	font-size: normal;
+}
+
+table.candy-calc td.heading {
+	font-weight: bold;
+	font-size: normal;
+}
+
+/* This is to reset any CSS selector that was being applied to the 
+inputs in the table already from other style sheets */
+table.candy-calc td select {
+	font-size: 100%;
+}
+
+/* Make all calculator text slighty smaller than normal test on page */
+table.candy-calc td {
+	font-size: 80%;
+}
+
+/* =============================================================================== */
+/* ============================== INPUT BOX STYLING ============================== */
+/* =============================================================================== */
 
 /* Input box styling for valid values. See .input.notvalid class for styling for
 invalid values */
-.input {
+input.input {
+	/* Background colour is green by default */
+	background-color: #99FF99;
 	border: 3px solid #000000;
 	border-radius: 4px;
+	max-width: 100px;
 	padding: 2px;
-	background-color: #99FF99;
-	width: 100px;
-	
+	width: 100%;
 }
 
-.input.ok {
-	border-color: #00ff00;
+input.input.ok {
+	border-color: #00FF00;
+	/* Green, same as default background colour */
+	background-color: #99FF99;
 }
 
 /* Make border glow green for valid selected input variables */
-.input:focus { 
+input.input:focus { 
 	outline: none;
 	/*border-color: #00ff00;*/
 	box-shadow: 0 0 10px #9ecaed;
 }
 
 /* Make background colour orange for variables with warning class */
-.input.warning, .output.warning {
+input.input.warning, .output.warning {
 	background-color: #FF9C59;
 	border-color: #ff6600;
 }
 
 /* Make background colour red for variables with error class */
-.input.error, .output.error {
+input.input.error, input.output.error {
 	background-color: #FF9999;
 	border-color: #ff0000;
 }
 
 /* Make border glow red */
-.input.warning:focus { 
+input.input.warning:focus { 
 	outline: none;
 	box-shadow: 0 0 10px #9ecaed;
 }
 
 /* Make border glow red */
-.input.error:focus { 
+input.input.error:focus { 
 	outline: none;
 	box-shadow: 0 0 10px #9ecaed;
 }
 
 /* Outputs have a smaller border to differentiate themselves from inputs
  They are also non-editable (readonly), but this in set via javascript */
-.output {
+input.output {
 	border: 1px solid #000000;
 	border-radius: 0px;
 	padding: 2px;
 	background-color: #99FF99;
-	width: 100px;
+	width: 100%;
+	max-width: 100px;
 }
 
 /*==================================*/
